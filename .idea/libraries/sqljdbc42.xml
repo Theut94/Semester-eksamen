@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="sqljdbc42">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/sqljdbc42.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../MyTunes_2021A2/sqljdbc42.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
