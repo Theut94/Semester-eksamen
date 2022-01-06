@@ -5,6 +5,9 @@ import javafx.beans.property.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *  Movie class, this is where we describe a movie
+ */
 
 public class Movie
 {
@@ -13,6 +16,8 @@ public class Movie
     private FloatProperty moviePersonalRating = new SimpleFloatProperty();
     private ArrayList movieCategories;
     private IntegerProperty id = new SimpleIntegerProperty();
+
+    //We still need a Date variable.
 
     public Movie(int id, String movieName, float movieIMDBRating, float moviePersonalRating, ArrayList movieCategories)
     {
@@ -23,6 +28,8 @@ public class Movie
         this.movieCategories.addAll(movieCategories);
 
     }
+
+    // Getters and setters for the class properties
 
     public String getMovieName() {
         return movieName.get();

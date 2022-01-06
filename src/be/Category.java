@@ -5,6 +5,9 @@ import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
+/**
+ *  This is the category class, we simple have a name, id and a list of movies here.
+ */
 public class Category
 {
     private int id;
@@ -15,7 +18,7 @@ public class Category
     {
 
     }
-
+    // Getters and setters.
     public int getId() {
         return id;
     }
