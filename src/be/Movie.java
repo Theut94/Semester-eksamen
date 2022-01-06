@@ -3,6 +3,7 @@ package be;
 import javafx.beans.property.*;
 
 import java.awt.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -16,16 +17,16 @@ public class Movie
     private FloatProperty moviePersonalRating = new SimpleFloatProperty();
     private ArrayList movieCategories;
     private IntegerProperty id = new SimpleIntegerProperty();
+    private LocalDate lastview;
 
     //We still need a Date variable.
 
-    public Movie(int id, String movieName, float movieIMDBRating, float moviePersonalRating, ArrayList movieCategories)
+    public Movie(int id, String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, LocalDate lastview)
     {
         this.id.set(id);
         this.movieName.set(movieName);
         this.movieIMDBRating.set(movieIMDBRating);
         this.moviePersonalRating.set(moviePersonalRating);
-        this.movieCategories.addAll(movieCategories);
 
     }
 
