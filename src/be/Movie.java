@@ -18,6 +18,7 @@ public class Movie
     private ArrayList movieCategories;
     private IntegerProperty id = new SimpleIntegerProperty();
     private LocalDate lastview;
+    private String filelink;
 
     //We still need a Date variable.
 
@@ -27,6 +28,8 @@ public class Movie
         this.movieName.set(movieName);
         this.movieIMDBRating.set(movieIMDBRating);
         this.moviePersonalRating.set(moviePersonalRating);
+        this.filelink = filelink;
+        this.lastview = lastview;
 
     }
 
@@ -40,7 +43,7 @@ public class Movie
         this.movieName.set(movieName);
     }
 
-    public double getMovieIMDBRating() {
+    public float getMovieIMDBRating() {
         return movieIMDBRating.get();
     }
 
@@ -48,7 +51,7 @@ public class Movie
         this.movieIMDBRating.set(movieIMDBRating);
     }
 
-    public double getMoviePersonalRating() {
+    public float getMoviePersonalRating() {
         return moviePersonalRating.get();
     }
 
@@ -58,5 +61,21 @@ public class Movie
 
     public int getId() {
         return id.get();
+    }
+
+    public LocalDate getLastview() {
+        return lastview;
+    }
+    public void setLastview(LocalDate lastview)
+    {
+        this.lastview = lastview;
+    }
+
+    public String getFilelink() {
+        return filelink;
+    }
+
+    public void setFilelink(String filelink) {
+        this.filelink = filelink;
     }
 }

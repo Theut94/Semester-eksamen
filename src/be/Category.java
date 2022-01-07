@@ -14,8 +14,10 @@ public class Category
     private StringProperty name = new SimpleStringProperty();
     private ArrayList listOfMovies;
 
-    public Category()
+    public Category(String name, int id)
     {
+        this.name.set(name);
+        this.id = id;
 
     }
     // Getters and setters.
