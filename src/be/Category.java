@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public class Category
 {
     private int id;
-    private StringProperty name = new SimpleStringProperty();
+    private StringProperty categoryName = new SimpleStringProperty();
     private ArrayList listOfMovies;
 
-    public Category(String name, int id)
+    public Category(int id, String name)
     {
-        this.name.set(name);
+        this.categoryName.set(name);
         this.id = id;
 
     }
@@ -26,7 +26,7 @@ public class Category
     }
 
     public String getName() {
-        return name.get();
+        return categoryName.get();
     }
 
     public ArrayList getListOfMovies() {
@@ -34,6 +34,10 @@ public class Category
     }
 
     public void setName(String name) {
-        this.name.set(name);
+        this.categoryName.set(name);
+    }
+
+    public String getCategoryName() {
+        return categoryName.get();
     }
 }

@@ -14,8 +14,7 @@ public class MovieDAO
 {
     DatabaseConnector DC = new DatabaseConnector();
 
-    public MovieDAO() throws IOException
-    {
+    public MovieDAO() throws IOException {
     }
 
     public Movie createMovie(String movieName, float ratingPersonal, float ratingIMDB, String filelink, LocalDate lastview) {
@@ -27,16 +26,13 @@ public class MovieDAO
             ps.setFloat(3, ratingIMDB);
             ps.setString(4, URLConverter.filePathToURI(filelink));
             ps.setString(5, lastview.toString());
-
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 1) {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
                     Movie movie = new Movie(id, movieName, ratingIMDB, ratingPersonal, filelink, lastview);
-                    return movie;
-                }
-
+                    return movie; }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();}
@@ -67,8 +63,7 @@ public class MovieDAO
 
     public void updateMovie(Movie movie)
     {
-
-        String sql = "UPDATE Movie SET movieName= (?), ratingIMDB=(?), ratingPersonal=(?), filelink=(?), lastView = (?) WHERE movieID = (?);";
+        String sql = "UPDATE Movie SET movieName= (?), ratingIMDB=(?), ratingPersonal=(?), filelink=(?), lastView = (?) WHERE movieId = (?);";
         try(Connection connection = DC.getConnection())
         {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -79,7 +74,6 @@ public class MovieDAO
             statement.setString(5,movie.getLastview().toString());
             statement.setInt(6, movie.getId());
             statement.executeUpdate();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -87,18 +81,12 @@ public class MovieDAO
 
     public void deleteMovie(Movie movie)
     {
-        String sql1 = "DELETE FROM Movie WHERE movieID = (?);";
-
+        String sql = "DELETE FROM Movie WHERE movieId = (?);";
         try(Connection connection = DC.getConnection())
         {
-            PreparedStatement ps = connection.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
-
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, movie.getId());
-
             ps.executeUpdate();
-
-        } catch (SQLServerException throwables) {
-            throwables.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
