@@ -34,7 +34,8 @@ public class CatMovieManager
     {
         catMovieDAO.deleteCategoryFromCatMovie(category);
     }
-    public ObservableList<Movie> getAllMoviesToObservable(Category category)
+
+    public ObservableList<Movie> getAllMoviesFromCatToObservable(Category category)
     {
         ObservableList<Movie> observableMoviesFromCatMovie = FXCollections.observableArrayList();
         observableMoviesFromCatMovie.addAll(catMovieDAO.getMoviesFromCategory(category));

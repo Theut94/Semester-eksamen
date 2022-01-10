@@ -16,24 +16,24 @@ public class CategoryDAO {
     public CategoryDAO() throws IOException {
     }
 
-    public Category createCategory(String categoryName) {
+    public void createCategory(Category category) {
         try (Connection connection = DC.getConnection()) {
             String sql = "INSERT INTO Category(categoryName) VALUES (?);";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, categoryName);
+            ps.setString(1, category.getCategoryName());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 1) {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
-                    Category category = new Category(id, categoryName);
-                    return category;
+                    category.setId(id);
+
                 }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
+
     }
 
     public List<Category> getAllCategories() {
@@ -43,9 +43,8 @@ public class CategoryDAO {
             Statement s = c.createStatement();
             ResultSet rs = s.executeQuery(sql);
             while(rs.next()) {
-                int categoryId = rs.getInt("categoryId");
                 String categoryName = rs.getString("categoryName");
-                Category cat = new Category(categoryId, categoryName);
+                Category cat = new Category(categoryName);
                 allCategories.add(cat);
             }
         } catch (SQLException throwables) {

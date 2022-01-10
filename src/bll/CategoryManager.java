@@ -17,12 +17,12 @@ public class CategoryManager
 
     }
 
-    public Category createCategory(String categoryName)
+    public void createCategory(Category category)
     {
-        return categoryDAO.createCategory(categoryName);
+        categoryDAO.createCategory(category);
     }
 
-    public ObservableList<Category> getAllMoviesToObservable()
+    public ObservableList<Category> getAllCategoriesToObservable()
     {
         ObservableList<Category> observableCategories = FXCollections.observableArrayList();
         observableCategories.addAll(categoryDAO.getAllCategories());
