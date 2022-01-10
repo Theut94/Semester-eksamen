@@ -77,7 +77,6 @@ public class CatMovieDAO
             ps.setInt(1, category.getId());
             ResultSet rs = ps.getGeneratedKeys();
             while(rs.next()) {
-                int movieId = rs.getInt("movieId");
                 String movieName = rs.getString("movieName");
                 float ratingIMDB = rs.getFloat("ratingIMDB");
                 float ratingPersonal = rs.getFloat("ratingPersonal");

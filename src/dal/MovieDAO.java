@@ -46,7 +46,6 @@ public class MovieDAO
             Statement s = c.createStatement();
             ResultSet rs = s.executeQuery(sql);
             while(rs.next()) {
-                int movieId = rs.getInt("movieId");
                 String movieName = rs.getString("movieName");
                 float ratingIMDB = rs.getFloat("ratingIMDB");
                 float ratingPersonal = rs.getFloat("ratingPersonal");
