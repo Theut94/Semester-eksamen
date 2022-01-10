@@ -5,20 +5,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="389.0" prefWidth="794.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
-   <children>
-      <TableView layoutX="166.0" prefHeight="400.0" prefWidth="302.0" style="-fx-background-color: #c2fcec;">
-        <columns>
-          <TableColumn prefWidth="96.80003356933594" style="-fx-background-color: #0e6e53;" text="Title" />
-            <TableColumn prefWidth="103.99993896484375" style="-fx-background-color: #0e6e53;" text="IMDB rating" />
-            <TableColumn prefWidth="105.60003662109375" style="-fx-background-color: #0e6e53;" text="My rating" />
-        </columns>
-      </TableView>
-      <TableView prefHeight="400.0" prefWidth="166.0" style="-fx-background-color: #c2fcec;">
-        <columns>
-          <TableColumn prefWidth="196.79998779296875" style="-fx-background-color: #0e6e53;" text="Catagory" />
-        </columns>
-      </TableView>
-      <Pane layoutX="460.0" prefHeight="400.0" prefWidth="332.0" style="-fx-background-color: #c2fcec;" />
-   </children>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<AnchorPane prefHeight="428.0" prefWidth="800.0" style="-fx-background-color: #c2fcec;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
+    <children>
+        <TableView layoutX="166.0" layoutY="26.0" prefHeight="402.0" prefWidth="302.0" style="-fx-background-color: #c2fcec;">
+            <columns>
+                <TableColumn prefWidth="96.80003356933594" style="-fx-background-color: #0e6e53;" text="Title" />
+                <TableColumn prefWidth="103.99993896484375" style="-fx-background-color: #0e6e53;" text="IMDB rating" />
+                <TableColumn prefWidth="105.60003662109375" style="-fx-background-color: #0e6e53;" text="My rating" />
+            </columns>
+        </TableView>
+        <TableView layoutY="26.0" prefHeight="402.0" prefWidth="166.0" style="-fx-background-color: #c2fcec;">
+            <columns>
+                <TableColumn prefWidth="196.79998779296875" style="-fx-background-color: #0e6e53;" text="Catagory" />
+            </columns>
+        </TableView>
+        <Pane layoutX="468.0" layoutY="1.0" prefHeight="402.0" prefWidth="330.0" style="-fx-background-color: #c2fcec;" />
+        <TextField layoutX="317.0" />
+        <MenuButton layoutX="166.0" mnemonicParsing="false" text="Movie Options">
+            <items>
+                <MenuItem mnemonicParsing="false" text="New" />
+                <MenuItem mnemonicParsing="false" text="Edit" />
+                <MenuItem mnemonicParsing="false" text="Delete" />
+                <MenuItem mnemonicParsing="false" text="Cleanup" />
+            </items>
+        </MenuButton>
+        <MenuButton mnemonicParsing="false" text="Category Options">
+            <items>
+                <MenuItem mnemonicParsing="false" text="New" />
+                <MenuItem mnemonicParsing="false" text="Edit" />
+                <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+        </MenuButton>
+    </children>
 </AnchorPane>
