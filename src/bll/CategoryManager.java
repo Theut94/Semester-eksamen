@@ -6,13 +6,14 @@ import dal.CategoryDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CategoryManager
 {
-    private CategoryDAO categoryDAO;
-    public CategoryManager()
-    {
+    private CategoryDAO categoryDAO = new CategoryDAO();
+
+    public CategoryManager() throws IOException {
 
     }
 

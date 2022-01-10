@@ -22,14 +22,14 @@ public class Movie
 
     //We still need a Date variable.
 
-    public Movie(int id, String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, LocalDate lastview)
+    public Movie(String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, LocalDate lastview)
     {
-        this.id.set(id);
         this.movieName.set(movieName);
         this.movieIMDBRating.set(movieIMDBRating);
         this.moviePersonalRating.set(moviePersonalRating);
         this.filelink = filelink;
         this.lastview = lastview;
+        id.set(-1);
 
     }
 
@@ -77,5 +77,9 @@ public class Movie
 
     public void setFilelink(String filelink) {
         this.filelink = filelink;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 }

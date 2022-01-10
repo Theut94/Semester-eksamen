@@ -17,26 +17,26 @@ public class MovieDAO
     public MovieDAO() throws IOException {
     }
 
-    public Movie createMovie(String movieName, float ratingPersonal, float ratingIMDB, String filelink, LocalDate lastview) {
+    public void createMovie(Movie movie) {
         try(Connection connection = DC.getConnection()) {
             String sql = "INSERT INTO Movie(movieName, ratingPersonal, ratingIMDB, filelink, lastview) VALUES (?,?,?,?,?);";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, movieName);
-            ps.setFloat(2, ratingPersonal);
-            ps.setFloat(3, ratingIMDB);
-            ps.setString(4, URLConverter.filePathToURI(filelink));
-            ps.setString(5, lastview.toString());
+            ps.setString(1, movie.getMovieName());
+            ps.setFloat(2, movie.getMoviePersonalRating());
+            ps.setFloat(3, movie.getMovieIMDBRating());
+            ps.setString(4, URLConverter.filePathToURI(movie.getFilelink()));
+            ps.setString(5, movie.getLastview().toString());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 1) {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     int id = rs.getInt(1);
-                    Movie movie = new Movie(id, movieName, ratingIMDB, ratingPersonal, filelink, lastview);
-                    return movie; }
+                    movie.setId(id);
+                }
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();}
-        return null;
+            throwables.printStackTrace();
+        }
     }
 
     public List<Movie> getAllMovies() {
@@ -52,7 +52,7 @@ public class MovieDAO
                 float ratingPersonal = rs.getFloat("ratingPersonal");
                 String filelink = rs.getString("filelink");
                 LocalDate lastview = LocalDate.parse(rs.getString("lastview"));
-                Movie movie = new Movie(movieId, movieName, ratingIMDB, ratingPersonal, filelink, lastview);
+                Movie movie = new Movie(movieName, ratingIMDB, ratingPersonal, filelink, lastview);
                 allMovies.add(movie);
             }
         } catch (SQLException throwables) {

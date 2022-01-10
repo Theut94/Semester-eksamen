@@ -6,12 +6,13 @@ import dal.CatMovieDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
+
 public class CatMovieManager
 {
-    private CatMovieDAO catMovieDAO;
+    private CatMovieDAO catMovieDAO = new CatMovieDAO();
 
-    public CatMovieManager()
-    {
+    public CatMovieManager() throws IOException {
 
     }
 

@@ -6,15 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MovieManager
 {
-    private MovieDAO movieDAO;
+    private MovieDAO movieDAO = new MovieDAO();
 
-    public MovieManager()
-    {
+    public MovieManager() throws IOException {
 
     }
 
@@ -25,9 +25,9 @@ public class MovieManager
         return observableMovies;
     }
 
-    public Movie createMovie(String movieName, float ratingPersonal, float ratingIMDB, String filelink, LocalDate lastview)
+    public void createMovie(Movie movie)
     {
-        return movieDAO.createMovie(movieName, ratingPersonal, ratingIMDB, filelink, lastview);
+        movieDAO.createMovie(movie);
     }
 
     public void updateMovie(Movie movie)
@@ -39,4 +39,5 @@ public class MovieManager
     {
         movieDAO.deleteMovie(movie);
     }
+
 }

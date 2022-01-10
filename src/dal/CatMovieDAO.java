@@ -83,7 +83,7 @@ public class CatMovieDAO
                 float ratingPersonal = rs.getFloat("ratingPersonal");
                 String filelink = rs.getString("filelink");
                 LocalDate lastview = LocalDate.parse(rs.getString("lastview"));
-                Movie movie = new Movie(movieId, movieName, ratingIMDB, ratingPersonal, filelink, lastview);
+                Movie movie = new Movie(movieName, ratingIMDB, ratingPersonal, filelink, lastview);
                 allMoviesFromCategory.add(movie);
             }
         } catch (SQLException throwables) {
