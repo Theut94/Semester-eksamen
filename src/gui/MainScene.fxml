@@ -56,7 +56,7 @@
             </Pane>
          </children></Pane>
         <TextField fx:id="movieSearch" layoutX="317.0" layoutY="13.0" promptText="Search..." />
-        <MenuButton layoutX="147.0" layoutY="13.0" mnemonicParsing="false" text="Movie Options">
+        <MenuButton layoutX="147.0" layoutY="13.0" mnemonicParsing="false" onAction="#OptionsMovie" text="Movie Options">
             <items>
                 <MenuItem mnemonicParsing="false" text="New" />
                 <MenuItem mnemonicParsing="false" text="Edit" />
@@ -64,14 +64,14 @@
                 <MenuItem mnemonicParsing="false" text="Cleanup" />
             </items>
         </MenuButton>
-        <MenuButton layoutX="14.0" layoutY="13.0" mnemonicParsing="false" text="Category Options">
+        <MenuButton layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#OptionsCategory" text="Category Options">
             <items>
                 <MenuItem mnemonicParsing="false" text="New" />
                 <MenuItem mnemonicParsing="false" text="Edit" />
                 <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
         </MenuButton>
-      <ComboBox layoutX="466.0" layoutY="13.0" prefHeight="0.0" prefWidth="84.0" promptText="Rating" />
+      <ComboBox fx:id="cbMinimumRating" layoutX="466.0" layoutY="13.0" prefHeight="0.0" prefWidth="84.0" promptText="Rating" />
       <Button layoutX="708.0" layoutY="13.0" mnemonicParsing="false" onAction="#RunCleanup" text="Run Cleanup" />
     </children>
 </AnchorPane>

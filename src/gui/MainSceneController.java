@@ -3,6 +3,7 @@ package gui;
 import bll.CatMovieManager;
 import bll.CategoryManager;
 import bll.MovieManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -33,5 +34,19 @@ public class MainSceneController {
     }
 
 
+    public void PlayMovie(ActionEvent actionEvent) {
+    }
+
+    public void ChangeRating(ActionEvent actionEvent) {
+    }
+
+    public void OptionsMovie(ActionEvent actionEvent) {
+    }
+
+    public void OptionsCategory(ActionEvent actionEvent) {
+    }
+
+    public void RunCleanup(ActionEvent actionEvent) {
+    }
 }
 
