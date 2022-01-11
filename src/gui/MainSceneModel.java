@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class MainSceneModel
 {
@@ -89,5 +90,12 @@ public class MainSceneModel
     public void deleteCategory(Category category)
     {
         categoryManager.deleteCategory(category);
+    }
+
+    public void search(String keyChar) {
+        List<Movie> allMovies = movieManager.getAllMoviesToObservable();
+        List<Movie> result = movieManager.getSearchedMovies(allMovies, keyChar);
+        moviesFromCategories.clear();
+        moviesFromCategories.addAll(result);
     }
 }

@@ -1,30 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<AnchorPane prefHeight="428.0" prefWidth="800.0" style="-fx-background-color: #c2fcec;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #c2fcec;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
     <children>
-        <TableView layoutX="166.0" layoutY="26.0" prefHeight="402.0" prefWidth="302.0" style="-fx-background-color: #c2fcec;">
+        <TableView layoutX="200.0" layoutY="50.0" prefHeight="450.0" prefWidth="350.0" style="-fx-background-color: #c2fcec; -fx-border-color: #0e6e53;">
             <columns>
-                <TableColumn prefWidth="96.80003356933594" style="-fx-background-color: #0e6e53;" text="Title" />
-                <TableColumn prefWidth="103.99993896484375" style="-fx-background-color: #0e6e53;" text="IMDB rating" />
-                <TableColumn prefWidth="105.60003662109375" style="-fx-background-color: #0e6e53;" text="My rating" />
+                <TableColumn prefWidth="159.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="Title" />
+                <TableColumn prefWidth="77.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="IMDB rating" />
+                <TableColumn prefWidth="62.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="My rating" />
             </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
         </TableView>
-        <TableView layoutY="26.0" prefHeight="402.0" prefWidth="166.0" style="-fx-background-color: #c2fcec;">
+        <TableView layoutY="50.0" prefHeight="450.0" prefWidth="200.0" style="-fx-background-color: #c2fcec; -fx-border-color: #0e6e53;">
             <columns>
-                <TableColumn prefWidth="196.79998779296875" style="-fx-background-color: #0e6e53;" text="Catagory" />
+                <TableColumn prefWidth="165.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="Catagory" />
             </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
         </TableView>
-        <Pane layoutX="468.0" layoutY="1.0" prefHeight="402.0" prefWidth="330.0" style="-fx-background-color: #c2fcec;" />
-        <TextField layoutX="317.0" />
-        <MenuButton layoutX="166.0" mnemonicParsing="false" text="Movie Options">
+        <Pane layoutX="550.0" layoutY="50.0" prefHeight="450.0" prefWidth="250.0" style="-fx-background-color: #c2fcec; -fx-border-color: #0e6e53;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="232.0" layoutX="48.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../../../../OneDrive/Billeder/KITTYYYYY.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="157.0" layoutY="301.0" mnemonicParsing="false" text="Play Movie" />
+            <DatePicker layoutX="17.0" layoutY="412.0" prefHeight="25.0" prefWidth="101.0" />
+            <Label layoutX="17.0" layoutY="395.0" text="Last viewed" />
+            <Button layoutX="137.0" layoutY="412.0" mnemonicParsing="false" text="Change Rating" />
+            <Pane layoutX="43.0" layoutY="171.0" prefHeight="130.0" prefWidth="160.0">
+               <children>
+                  <Label fx:id="lblMovieName" layoutY="14.0" text="Movie Name" />
+                  <Label layoutY="41.0" text="IMDB Rating: " />
+                  <Label fx:id="lblRatingIMDB" layoutX="80.0" layoutY="41.0" text="N/A" />
+                  <Label fx:id="lblRatingPersonal" layoutX="80.0" layoutY="67.0" text="N/A" />
+                  <Label layoutY="67.0" text="My Rating: " />
+               </children>
+            </Pane>
+         </children></Pane>
+        <TextField fx:id="movieSearch" layoutX="317.0" layoutY="13.0" promptText="Search..." />
+        <MenuButton layoutX="147.0" layoutY="13.0" mnemonicParsing="false" text="Movie Options">
             <items>
                 <MenuItem mnemonicParsing="false" text="New" />
                 <MenuItem mnemonicParsing="false" text="Edit" />
@@ -32,12 +64,14 @@
                 <MenuItem mnemonicParsing="false" text="Cleanup" />
             </items>
         </MenuButton>
-        <MenuButton mnemonicParsing="false" text="Category Options">
+        <MenuButton layoutX="14.0" layoutY="13.0" mnemonicParsing="false" text="Category Options">
             <items>
                 <MenuItem mnemonicParsing="false" text="New" />
                 <MenuItem mnemonicParsing="false" text="Edit" />
                 <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
         </MenuButton>
+      <ComboBox layoutX="466.0" layoutY="13.0" prefHeight="0.0" prefWidth="84.0" promptText="Rating" />
+      <Button layoutX="708.0" layoutY="13.0" mnemonicParsing="false" text="Run Cleanup" />
     </children>
 </AnchorPane>

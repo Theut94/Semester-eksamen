@@ -19,6 +19,7 @@ public class Movie
     private IntegerProperty id = new SimpleIntegerProperty();
     private LocalDate lastview;
     private String filelink;
+    private String category;
 
     //We still need a Date variable.
 
@@ -29,6 +30,7 @@ public class Movie
         this.moviePersonalRating.set(moviePersonalRating);
         this.filelink = filelink;
         this.lastview = lastview;
+        this.category = category;
         id.set(-1);
 
     }
@@ -81,5 +83,9 @@ public class Movie
 
     public void setId(int id) {
         this.id.set(id);
+    }
+
+    public String getCategory() {
+        return category;
     }
 }
