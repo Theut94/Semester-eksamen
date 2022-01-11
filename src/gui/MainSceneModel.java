@@ -92,6 +92,7 @@ public class MainSceneModel
         categoryManager.deleteCategory(category);
     }
 
+    //Search function
     public void search(String keyChar) {
         List<Movie> allMovies = movieManager.getAllMoviesToObservable();
         List<Movie> result = movieManager.getSearchedMovies(allMovies, keyChar);

@@ -48,9 +48,7 @@ public class MovieController implements Initializable {
 
     public MovieController ()
     {
-
     }
-
 
     public void chooseMoviePath(ActionEvent actionEvent)
     {
@@ -112,7 +110,6 @@ public class MovieController implements Initializable {
         textAreaCategories.setText(categories);
         this.movieId = movieId;
         lastViewedDate = lastview.toString();
-
     }
 
     @Override
