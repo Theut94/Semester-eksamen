@@ -1,6 +1,7 @@
 package gui;
 
 import be.Movie;
+import bll.util.URLConverter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -41,6 +44,7 @@ public class MovieController implements Initializable {
     private MainSceneModel mainSceneModel;
     private boolean edit;
     private int movieId;
+    private String lastViewedDate;
 
     public MovieController ()
     {
@@ -58,6 +62,7 @@ public class MovieController implements Initializable {
         File selectedFile = fc.showOpenDialog(null);
         if (selectedFile != null) {
             txtMovieFilePath.setText(selectedFile.getAbsolutePath());
+            txtMovieTitle.setText(selectedFile.getName());
         }
     }
 
@@ -76,15 +81,15 @@ public class MovieController implements Initializable {
     public void saveMovie(ActionEvent actionEvent)
     {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDate standardDate = LocalDate.parse("1969-04-20",dateTimeFormatter);
         if(!edit)
         {
-
+            LocalDate standardDate = LocalDate.parse("1969-04-20",dateTimeFormatter);
             mainSceneModel.createMovie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),Float.parseFloat(txtPersonalRating.getText()),txtMovieFilePath.getText(),standardDate);
         }
         else
         {
-            Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),Float.parseFloat(txtPersonalRating.getText()),txtMovieFilePath.getText(),standardDate);
+            LocalDate ViewedDate = LocalDate.parse(lastViewedDate,dateTimeFormatter);
+            Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),Float.parseFloat(txtPersonalRating.getText()),txtMovieFilePath.getText(),ViewedDate);
             movie.setId(movieId);
             mainSceneModel.updateMovie(movie);
         }
@@ -97,14 +102,16 @@ public class MovieController implements Initializable {
         mainSceneModel = mainscenemodel;
     }
 
-    public void setMovieValues(int movieId, String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, LocalDate lastview)
+    public void setMovieValues(int movieId, String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, String picturePath, LocalDate lastview, String categories)
     {
-        txtMovieFilePath.setText("");
-        txtIMDBRating.setText("");
-        txtMovieTitle.setText("");
-        txtPersonalRating.setText("");
-        txtPicturePath.setText("");
-        textAreaCategories.setText("");
+        txtMovieFilePath.setText(filelink);
+        txtIMDBRating.setText(String.valueOf(movieIMDBRating));
+        txtMovieTitle.setText(movieName);
+        txtPersonalRating.setText(String.valueOf(moviePersonalRating));
+        txtPicturePath.setText(picturePath);
+        textAreaCategories.setText(categories);
+        this.movieId = movieId;
+        lastViewedDate = lastview.toString();
 
     }
 
@@ -120,4 +127,5 @@ public class MovieController implements Initializable {
         edit = false;
 
     }
+
 }

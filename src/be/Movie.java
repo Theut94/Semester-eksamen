@@ -15,11 +15,10 @@ public class Movie
     private StringProperty movieName = new SimpleStringProperty();
     private FloatProperty movieIMDBRating = new SimpleFloatProperty();
     private FloatProperty moviePersonalRating = new SimpleFloatProperty();
-    private ArrayList movieCategories;
+    private ArrayList<Category> movieCategories;
     private IntegerProperty id = new SimpleIntegerProperty();
     private LocalDate lastview;
     private String filelink;
-    private String category;
 
     //We still need a Date variable.
 
@@ -30,8 +29,8 @@ public class Movie
         this.moviePersonalRating.set(moviePersonalRating);
         this.filelink = filelink;
         this.lastview = lastview;
-        this.category = category;
         id.set(-1);
+        movieCategories = new ArrayList();
 
     }
 
@@ -85,9 +84,6 @@ public class Movie
         this.id.set(id);
     }
 
-    public String getCategory() {
-        return category;
-    }
 
     public String getCategories()
     {
