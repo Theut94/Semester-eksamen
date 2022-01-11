@@ -12,6 +12,11 @@ public class DatabaseTableCreation {
     public DatabaseTableCreation() throws IOException {
     }
 
+    public static void main(String[] args) throws IOException {
+        DatabaseTableCreation dtc = new DatabaseTableCreation();
+        dtc.catMovieTableCreation();
+    }
+
     private void movieTableCreation() {
         try (Connection c = dbc.getConnection()) {
 
@@ -61,9 +66,24 @@ public class DatabaseTableCreation {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        DatabaseTableCreation dtc = new DatabaseTableCreation();
-        dtc.catMovieTableCreation();
-    }
+    // DONT TOUCH THIS METHOD IT IS DANGEROUS. WILL WIPE ENTIRE DATABASE!
+    public void deleteAllTables()
+    {
+        try (Connection c = dbc.getConnection()) {
 
+            String sql1 = "DELETE FROM dbo.CatMovie";
+            String sql2 = "DELETE FROM dbo.Category";
+            String sql3 = "DELETE FROM dbo.Movie";
+
+            PreparedStatement ps1 = c.prepareStatement(sql1);
+            ps1.execute();
+            PreparedStatement ps2 = c.prepareStatement(sql2);
+            ps2.execute();
+            PreparedStatement ps3 = c.prepareStatement(sql3);
+            ps3.execute();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

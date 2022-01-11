@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
@@ -81,7 +82,7 @@ public class MovieController implements Initializable {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         if(!edit)
         {
-            LocalDate standardDate = LocalDate.parse("1969-04-20",dateTimeFormatter);
+            LocalDate standardDate = LocalDate.of(1969,04,20);
             mainSceneModel.createMovie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),Float.parseFloat(txtPersonalRating.getText()),txtMovieFilePath.getText(),standardDate);
         }
         else
@@ -91,7 +92,7 @@ public class MovieController implements Initializable {
             movie.setId(movieId);
             mainSceneModel.updateMovie(movie);
         }
-
+        ((Stage) btnSave.getScene().getWindow()).close();
     }
 
 
@@ -110,6 +111,7 @@ public class MovieController implements Initializable {
         textAreaCategories.setText(categories);
         this.movieId = movieId;
         lastViewedDate = lastview.toString();
+        edit = true;
     }
 
     @Override

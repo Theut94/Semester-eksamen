@@ -24,7 +24,7 @@ public class MovieDAO
             ps.setString(1, movie.getMovieName());
             ps.setFloat(2, movie.getMoviePersonalRating());
             ps.setFloat(3, movie.getMovieIMDBRating());
-            ps.setString(4, URLConverter.filePathToURI(movie.getFilelink()));
+            ps.setString(4, URLConverter.fileLinkToURI(movie.getMovieFilelink()));
             ps.setString(5, movie.getLastview().toString());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 1) {
@@ -69,7 +69,7 @@ public class MovieDAO
             statement.setString(1, movie.getMovieName());
             statement.setFloat(2, movie.getMovieIMDBRating());
             statement.setFloat(3,movie.getMoviePersonalRating());
-            statement.setString(4, movie.getFilelink());
+            statement.setString(4, movie.getMovieFilelink());
             statement.setString(5,movie.getLastview().toString());
             statement.setInt(6, movie.getId());
             statement.executeUpdate();

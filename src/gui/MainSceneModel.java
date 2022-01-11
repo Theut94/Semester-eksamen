@@ -7,6 +7,10 @@ import bll.CategoryManager;
 import bll.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -17,6 +21,7 @@ public class MainSceneModel
     private CategoryManager categoryManager = new CategoryManager();
     private CatMovieManager catMovieManager = new CatMovieManager();
     private MovieManager movieManager = new MovieManager();
+    private MovieController movieController;
 
     private ObservableList<Movie> allMovies;
     private ObservableList<Category> allCategories;
@@ -98,5 +103,31 @@ public class MainSceneModel
         List<Movie> result = movieManager.getSearchedMovies(allMovies, keyChar);
         moviesFromCategories.clear();
         moviesFromCategories.addAll(result);
+    }
+
+    // MovieController functions
+    public Stage createMovieScene(String windowTitle) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("Movie.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle(windowTitle);
+        stage.initModality(Modality.WINDOW_MODAL);
+        movieController = fxmlLoader.getController();
+        movieController.setMainSceneModel(this);
+        return stage;
+    }
+
+    public void newMovie() throws IOException {
+        Stage stage = createMovieScene("New Movie");
+        stage.showAndWait();
+    }
+
+    public void editMovie(Movie movie) throws IOException
+    {
+        Stage stage = createMovieScene("Edit Movie");
+        movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getCategories() );
+        stage.showAndWait();
     }
 }

@@ -28,7 +28,7 @@
         </TableView>
         <TableView fx:id="tvCategories" layoutY="50.0" prefHeight="450.0" prefWidth="200.0" style="-fx-background-color: #c2fcec; -fx-border-color: #0e6e53;">
             <columns>
-                <TableColumn fx:id="tcCategory" prefWidth="165.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="Catagory" />
+                <TableColumn fx:id="tcCategory" prefWidth="165.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="Category" />
             </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -56,15 +56,14 @@
             </Pane>
          </children></Pane>
         <TextField fx:id="movieSearch" layoutX="317.0" layoutY="13.0" promptText="Search..." />
-        <MenuButton layoutX="147.0" layoutY="13.0" mnemonicParsing="false" onAction="#OptionsMovie" text="Movie Options">
+        <MenuButton fx:id="menuButtonMovieOptions" layoutX="147.0" layoutY="13.0" mnemonicParsing="false" text="Movie Options">
             <items>
-                <MenuItem mnemonicParsing="false" text="New" />
-                <MenuItem mnemonicParsing="false" text="Edit" />
-                <MenuItem mnemonicParsing="false" text="Delete" />
-                <MenuItem mnemonicParsing="false" text="Cleanup" />
+                <MenuItem mnemonicParsing="false" onAction="#newMovie" text="New"/>
+                <MenuItem mnemonicParsing="false" onAction="#editMovie" text="Edit" />
+                <MenuItem mnemonicParsing="false" onAction="#deleteMovie" text="Delete" />
             </items>
         </MenuButton>
-        <MenuButton layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#OptionsCategory" text="Category Options">
+        <MenuButton fx:id="menuButtonCategoryOptions" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#OptionsCategory" text="Category Options">
             <items>
                 <MenuItem mnemonicParsing="false" text="New" />
                 <MenuItem mnemonicParsing="false" text="Edit" />

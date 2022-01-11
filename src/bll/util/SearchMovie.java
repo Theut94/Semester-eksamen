@@ -56,7 +56,7 @@ public class SearchMovie {
 
     private boolean compareToCategory(Movie movie, String query)
     {
-        return movie.getCategory().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT));
+        return movie.getCategories().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT));
     }
 }
 
