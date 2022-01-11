@@ -88,4 +88,16 @@ public class Movie
     public String getCategory() {
         return category;
     }
+
+    public String getCategories()
+    {
+        String allCategories = new String();
+        for(int i = 0; i< movieCategories.size(); i++)
+        {
+            String addition = movieCategories.get(i).toString();
+            allCategories = allCategories +addition + " ";
+
+        }
+        return allCategories;
+    }
 }
