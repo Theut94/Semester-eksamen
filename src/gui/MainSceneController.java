@@ -20,6 +20,7 @@ public class MainSceneController {
     public TableColumn <Movie, Float> tcRatingIMDB;
     public TableColumn <Movie, Float> tcRatingPersonal;
     public TableView<Category>tvCategories;
+    public TableColumn<Category, String> tcCategory;
     private MainSceneModel mainSceneModel = new MainSceneModel();
 
     @FXML
@@ -29,8 +30,16 @@ public class MainSceneController {
         mainSceneModel = new MainSceneModel();
     }
 
-
     public void initialize() {
+
+        //Category initialize
+        tcCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("categoryName"));
+        try {
+            tvCategories.setItems(mainSceneModel.getAllCategories());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         //Movie search
         movieSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -71,8 +80,8 @@ public class MainSceneController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete?", ButtonType.YES,ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.YES) {
-            Movie movie = tvMovies.getSelectionModel().getSelectedItem();
-            mainSceneModel.deleteMovie(movie);
+            mainSceneModel.deleteMovie(tvMovies.getSelectionModel().getSelectedItem());
+            tvMovies.getItems().remove(tvMovies.getSelectionModel().getSelectedItem());
         }
     }
 
@@ -80,9 +89,10 @@ public class MainSceneController {
         tcMovieTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("movieName"));
         tcRatingIMDB.setCellValueFactory(new PropertyValueFactory<Movie, Float>("movieIMDBRating"));
         tcRatingPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("moviePersonalRating"));
+
         try {
-            if(!tvCategories.getSelectionModel().getSelectedItem().equals(tvCategories.getItems().get(0)))
-                tvMovies.setItems(mainSceneModel.getMoviesFromCategory(tvCategories.getSelectionModel().getSelectedItem()));
+            if(tvCategories.getSelectionModel().getSelectedItem().getId()!=1)
+            tvMovies.setItems(mainSceneModel.getMoviesFromCategory(tvCategories.getSelectionModel().getSelectedItem()));
             else
                 tvMovies.setItems(mainSceneModel.getAllMovies());
         } catch (Exception e) {

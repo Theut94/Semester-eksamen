@@ -69,6 +69,10 @@ public class MainSceneModel
         Movie movie = new Movie(movieName, movieIMDBRating, moviePersonalRating,filelink,lastview);
         allMovies.add(movie);
         movieManager.createMovie(movie);
+        for( Category c : movie.getMovieCategories())
+        {
+            catMovieManager.createCatMovie(movie,c);
+        }
     }
     public void updateMovie(Movie movie)
     {
@@ -76,6 +80,7 @@ public class MainSceneModel
     }
     public void deleteMovie(Movie movie)
     {
+        catMovieManager.deleteMovieFromCatMovie(movie);
         movieManager.deleteMovie(movie);
     }
 
@@ -95,6 +100,10 @@ public class MainSceneModel
     public void deleteCategory(Category category)
     {
         categoryManager.deleteCategory(category);
+    }
+
+    public ObservableList<Category> getAllCategories() {
+        return allCategories;
     }
 
     //Search function
@@ -127,7 +136,7 @@ public class MainSceneModel
     public void editMovie(Movie movie) throws IOException
     {
         Stage stage = createMovieScene("Edit Movie");
-        movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getCategories() );
+        movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getCategoriesToString() );
         stage.showAndWait();
     }
 }

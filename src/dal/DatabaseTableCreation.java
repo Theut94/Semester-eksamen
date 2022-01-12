@@ -58,6 +58,9 @@ public class DatabaseTableCreation {
                     "movieId int FOREIGN KEY REFERENCES Movie(movieId)," +
                     "categoryId int FOREIGN KEY REFERENCES Category(categoryId))";
 
+                    //ALTER TABLE CatMovie
+                    //ADD CONSTRAINT uq_CatMovie UNIQUE(movieId, categoryId)
+
             PreparedStatement ps = c.prepareStatement(sql);
             ps.execute();
         }

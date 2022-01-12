@@ -86,7 +86,7 @@ public class Movie
     }
 
 
-    public String getCategories()
+    public String getCategoriesToString()
     {
         String allCategories = new String();
         for(int i = 0; i< movieCategories.size(); i++)
@@ -96,6 +96,10 @@ public class Movie
 
         }
         return allCategories;
+    }
+
+    public ArrayList<Category> getMovieCategories() {
+        return movieCategories;
     }
 
     public String getPicturePath()

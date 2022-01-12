@@ -45,6 +45,7 @@ public class CategoryDAO {
             while(rs.next()) {
                 String categoryName = rs.getString("categoryName");
                 Category cat = new Category(categoryName);
+                cat.setId(rs.getInt("categoryId"));
                 allCategories.add(cat);
             }
         } catch (SQLException throwables) {

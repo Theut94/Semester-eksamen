@@ -1,10 +1,6 @@
 package bll.util;
 
 import be.Movie;
-import be.Category;
-import javafx.beans.InvalidationListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +52,7 @@ public class SearchMovie {
 
     private boolean compareToCategory(Movie movie, String query)
     {
-        return movie.getCategories().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT));
+        return movie.getCategoriesToString().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT));
     }
 }
 

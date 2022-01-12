@@ -26,7 +26,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
         </TableView>
-        <TableView fx:id="tvCategories" layoutY="50.0" prefHeight="450.0" prefWidth="200.0" style="-fx-background-color: #c2fcec; -fx-border-color: #0e6e53;">
+        <TableView fx:id="tvCategories" layoutY="50.0" onMouseClicked="#selectCategory" prefHeight="450.0" prefWidth="200.0" style="-fx-background-color: #c2fcec; -fx-border-color: #0e6e53;">
             <columns>
                 <TableColumn fx:id="tcCategory" prefWidth="165.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="Category" />
             </columns>
@@ -58,7 +58,7 @@
         <TextField fx:id="movieSearch" layoutX="317.0" layoutY="13.0" promptText="Search..." />
         <MenuButton fx:id="menuButtonMovieOptions" layoutX="147.0" layoutY="13.0" mnemonicParsing="false" text="Movie Options">
             <items>
-                <MenuItem mnemonicParsing="false" onAction="#newMovie" text="New"/>
+                <MenuItem mnemonicParsing="false" onAction="#newMovie" text="New" />
                 <MenuItem mnemonicParsing="false" onAction="#editMovie" text="Edit" />
                 <MenuItem mnemonicParsing="false" onAction="#deleteMovie" text="Delete" />
             </items>
