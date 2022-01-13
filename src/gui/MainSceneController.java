@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -13,18 +15,36 @@ import java.util.Optional;
 
 public class MainSceneController {
 
-    public MenuButton menuButtonMovieOptions;
-    public MenuButton menuButtonCategoryOptions;
-    public TableView<Movie>tvMovies;
-    public TableColumn <Movie, String> tcMovieTitle;
-    public TableColumn <Movie, Float> tcRatingIMDB;
-    public TableColumn <Movie, Float> tcRatingPersonal;
-    public TableView<Category>tvCategories;
-    public TableColumn<Category, String> tcCategory;
-    private MainSceneModel mainSceneModel = new MainSceneModel();
-
+    @FXML
+    private ImageView imgMovie;
+    @FXML
+    private MenuButton menuButtonMovieOptions;
+    @FXML
+    private MenuButton menuButtonCategoryOptions;
+    @FXML
+    private TableView<Movie>tvMovies;
+    @FXML
+    private TableColumn <Movie, String> tcMovieTitle;
+    @FXML
+    private TableColumn <Movie, Float> tcRatingIMDB;
+    @FXML
+    private TableColumn <Movie, Float> tcRatingPersonal;
+    @FXML
+    private TableView<Category>tvCategories;
+    @FXML
+    private TableColumn<Category, String> tcCategory;
+    @FXML
+    private DatePicker dpLastView;
+    @FXML
+    private Label lblMovieName;
+    @FXML
+    private Label lblRatingIMDB;
+    @FXML
+    private Label lblRatingPersonal;
     @FXML
     private TextField movieSearch;
+
+    private MainSceneModel mainSceneModel = new MainSceneModel();
 
     public MainSceneController() throws Exception {
         mainSceneModel = new MainSceneModel();
@@ -98,6 +118,26 @@ public class MainSceneController {
                 else
                     tvMovies.setItems(mainSceneModel.getAllMovies());
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showMovieInfo(MouseEvent mouseEvent) {
+        try{
+            Movie selectedItem = tvMovies.getSelectionModel().getSelectedItem();
+            if(selectedItem != null){
+                lblMovieName.setText(selectedItem.getMovieName());
+                lblRatingIMDB.setText(Float.toString(selectedItem.getMovieIMDBRating()));
+                lblRatingPersonal.setText(Float.toString(selectedItem.getMoviePersonalRating()));
+                if (selectedItem.getPicturePath() != null) {
+                    imgMovie.setImage(new Image(selectedItem.getPicturePath()));
+                }
+                else {
+                    imgMovie.setImage(new Image("@../Media/NoImage.png"));
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
