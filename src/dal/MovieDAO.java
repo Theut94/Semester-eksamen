@@ -92,26 +92,17 @@ public class MovieDAO
         }
     }
 
-    public Movie getMovieFromId(int i) {
-        try(Connection c = DC.getConnection()){
-        String sql = "SELECT * FROM Movie WHERE movieId = (?)";
-        PreparedStatement ps = c.prepareStatement(sql);
-        ps.setInt(1, i);
-        ps.execute();
-        ResultSet rs = ps.getResultSet();
-        while(rs.next()) {
-            String movieName = rs.getString("movieName");
-            float ratingIMDB = rs.getFloat("ratingIMDB");
-            float ratingPersonal = rs.getFloat("ratingPersonal");
-            String filelink = rs.getString("filelink");
-            LocalDate lastview = LocalDate.parse(rs.getString("lastview"));
-            Movie movie = new Movie(movieName, ratingIMDB, ratingPersonal, filelink, lastview);
-            movie.setId(rs.getInt("movieId"));
-            return movie;
+    public List<Movie> getMovieFromId(List<Integer> movieIds) {
+        ArrayList<Movie> moviesFromCategory = new ArrayList<>();
+        ArrayList<Movie> allMovies = new ArrayList<>();
+        allMovies.addAll(getAllMovies());
+        for(Movie m : allMovies)
+        {
+            for(int i : movieIds) {
+                if (m.getId() == i)
+                {moviesFromCategory.add(m);}
+            }
         }
-    } catch (SQLException throwables) {
-        throwables.printStackTrace();
-    }
-        return null;
+        return moviesFromCategory;
     }
 }

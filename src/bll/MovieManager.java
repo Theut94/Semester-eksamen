@@ -47,4 +47,9 @@ public class MovieManager
     {
         movieDAO.deleteMovie(movie);
     }
+
+    public List<Movie> getMoviesFromId(List<Integer> movieId)
+    {
+        return movieDAO.getMovieFromId(movieId);
+    }
 }

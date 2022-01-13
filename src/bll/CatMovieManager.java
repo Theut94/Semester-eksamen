@@ -3,6 +3,7 @@ package bll;
 import be.Category;
 import be.Movie;
 import dal.CatMovieDAO;
+import dal.MovieDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,6 +12,7 @@ import java.io.IOException;
 public class CatMovieManager
 {
     private CatMovieDAO catMovieDAO = new CatMovieDAO();
+    private MovieManager movieManager = new MovieManager();
 
     public CatMovieManager() throws IOException {
 
@@ -38,7 +40,7 @@ public class CatMovieManager
     public ObservableList<Movie> getAllMoviesFromCatToObservable(Category category)
     {
         ObservableList<Movie> observableMoviesFromCatMovie = FXCollections.observableArrayList();
-        observableMoviesFromCatMovie.addAll(catMovieDAO.getMoviesFromCategory(category));
+        observableMoviesFromCatMovie.addAll(movieManager.getMoviesFromId(catMovieDAO.getMoviesFromCategory(category)));
         return observableMoviesFromCatMovie;
     }
 }

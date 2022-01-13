@@ -91,10 +91,13 @@ public class MainSceneController {
         tcRatingPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("moviePersonalRating"));
 
         try {
-            if(tvCategories.getSelectionModel().getSelectedItem().getId()!=1)
-            tvMovies.setItems(mainSceneModel.getMoviesFromCategory(tvCategories.getSelectionModel().getSelectedItem()));
-            else
-                tvMovies.setItems(mainSceneModel.getAllMovies());
+            if(tvCategories.getSelectionModel().getSelectedItem() != null)
+            {
+                if(tvCategories.getSelectionModel().getSelectedItem().getId() != 1) //all movie id = 1
+                    tvMovies.setItems(mainSceneModel.getMoviesFromCategory(tvCategories.getSelectionModel().getSelectedItem()));
+                else
+                    tvMovies.setItems(mainSceneModel.getAllMovies());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

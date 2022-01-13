@@ -70,9 +70,9 @@ public class CatMovieDAO
         }
     }
 
-    public List<Movie> getMoviesFromCategory(Category category)
+    public List<Integer> getMoviesFromCategory(Category category)
     {
-        ArrayList<Movie> allMoviesFromCategory = new ArrayList<>();
+        ArrayList<Integer> allMoviesFromCategory = new ArrayList<>();
         try(Connection c = DC.getConnection()){
             String sql = "SELECT * FROM CatMovie WHERE categoryId = (?)";
             PreparedStatement ps = c.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class CatMovieDAO
             ResultSet rs = ps.getResultSet();
             while(rs.next()) {
                int i = rs.getInt("movieId");
-               allMoviesFromCategory.add(movieDAO.getMovieFromId(i));
+               allMoviesFromCategory.add(i);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
