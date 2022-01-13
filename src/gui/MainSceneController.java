@@ -134,7 +134,8 @@ public class MainSceneController {
                     imgMovie.setImage(new Image(selectedItem.getPicturePath()));
                 }
                 else {
-                    imgMovie.setImage(new Image("@../Media/NoImage.png"));
+                    //Set image to "NoImage.png", line below doesn't work
+                    //imgMovie.setImage(new Image("@../Media/NoImage.png"));
                 }
             }
 
