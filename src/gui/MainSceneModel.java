@@ -139,4 +139,8 @@ public class MainSceneModel
         movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getCategoriesToString() );
         stage.showAndWait();
     }
+
+    public void playMovie() throws IOException {
+        movieManager.playMovie();
+    }
 }

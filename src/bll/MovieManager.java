@@ -1,6 +1,7 @@
 package bll;
 
 import be.Movie;
+import bll.util.MoviePlayer;
 import bll.util.SearchMovie;
 import dal.MovieDAO;
 import javafx.collections.FXCollections;
@@ -52,4 +53,9 @@ public class MovieManager
     {
         return movieDAO.getMovieFromId(movieId);
     }
+
+    public void playMovie() throws IOException {
+        MoviePlayer.main();
+    }
+    
 }

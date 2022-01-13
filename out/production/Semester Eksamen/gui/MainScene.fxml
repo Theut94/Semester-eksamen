@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #c2fcec;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
     <children>
-        <TableView fx:id="tvMovies" layoutX="200.0" layoutY="50.0" prefHeight="450.0" prefWidth="350.0" style="-fx-background-color: #c2fcec; -fx-border-color: #0e6e53;">
+        <TableView fx:id="tvMovies" blendMode="SRC_ATOP" layoutX="200.0" layoutY="50.0" prefHeight="450.0" prefWidth="350.0" style="-fx-background-color: #c2fcec; -fx-border-color: #0e6e53;">
             <columns>
                 <TableColumn fx:id="tcMovieTitle" prefWidth="159.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="Title" />
                 <TableColumn fx:id="tcRatingIMDB" prefWidth="77.0" style="-fx-background-color: #128766; -fx-border-color: black;" text="IMDB rating" />

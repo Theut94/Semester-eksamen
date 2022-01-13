@@ -51,8 +51,8 @@ public class MainSceneController {
         });
     }
 
-    public void PlayMovie(ActionEvent actionEvent) {
-
+    public void PlayMovie(ActionEvent actionEvent) throws IOException {
+        mainSceneModel.playMovie();
     }
 
     public void ChangeRating(ActionEvent actionEvent) {
