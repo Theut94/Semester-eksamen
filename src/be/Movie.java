@@ -107,4 +107,7 @@ public class Movie
        return pictureFilelink;
     }
 
+    public void setMovieCategories(ArrayList<Category> movieCategories) {
+        this.movieCategories = movieCategories;
+    }
 }

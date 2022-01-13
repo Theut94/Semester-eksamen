@@ -12,7 +12,7 @@ public class Category
 {
     private int id;
     private StringProperty categoryName = new SimpleStringProperty();
-    private ArrayList listOfMovies;
+    private ArrayList<Movie> listOfMovies;
 
     public Category(String name)
     {

@@ -8,11 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CatMovieManager
 {
     private CatMovieDAO catMovieDAO = new CatMovieDAO();
     private MovieManager movieManager = new MovieManager();
+
 
     public CatMovieManager() throws IOException {
 
@@ -43,4 +45,9 @@ public class CatMovieManager
         observableMoviesFromCatMovie.addAll(movieManager.getMoviesFromId(catMovieDAO.getMoviesFromCategory(category)));
         return observableMoviesFromCatMovie;
     }
+    public List<Integer> getCategoryIdsOfMovie(Movie movie)
+    {
+        return catMovieDAO.getCategoryIdsOfMovie(movie);
+    }
+
 }

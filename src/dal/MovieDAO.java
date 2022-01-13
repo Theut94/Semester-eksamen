@@ -1,6 +1,7 @@
 package dal;
 
 import be.Movie;
+import bll.MovieManager;
 import bll.util.URLConverter;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
@@ -53,10 +54,15 @@ public class MovieDAO
                 LocalDate lastview = LocalDate.parse(rs.getString("lastview"));
                 Movie movie = new Movie(movieName, ratingIMDB, ratingPersonal, filelink, lastview);
                 movie.setId(rs.getInt("movieId"));
+
+                MovieManager movieManager = new MovieManager();
+                movie.setMovieCategories(movieManager.getCategoriesOfMovie(movie));
                 allMovies.add(movie);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return allMovies;
     }

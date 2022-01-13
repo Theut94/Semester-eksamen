@@ -130,13 +130,20 @@ public class MainSceneModel
 
     public void newMovie() throws IOException {
         Stage stage = createMovieScene("New Movie");
+        movieController.setLvAvailableCategories(getAllCategories());
         stage.showAndWait();
     }
 
     public void editMovie(Movie movie) throws IOException
     {
         Stage stage = createMovieScene("Edit Movie");
-        movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getCategoriesToString() );
+        movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getMovieCategories() );
+        ObservableList<Category> availableCategories = getAllCategories();
+        for(Category c : movie.getMovieCategories())
+        {
+            availableCategories.remove(c);
+        }
+        movieController.setLvAvailableCategories(availableCategories);
         stage.showAndWait();
     }
 

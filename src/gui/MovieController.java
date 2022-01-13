@@ -1,16 +1,13 @@
 package gui;
 
+import be.Category;
 import be.Movie;
-import bll.util.URLConverter;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -18,15 +15,17 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MovieController implements Initializable {
     @FXML
+    private ListView<String> lvChosenCategories;
+    @FXML
+    private ListView<String> lvAvailableCategories;
+    @FXML
     private TextField txtMovieTitle;
-    @FXML
-    private TextArea textAreaCategories;
-    @FXML
-    private ComboBox comboBoxCategories;
     @FXML
     private TextField txtIMDBRating;
     @FXML
@@ -49,6 +48,17 @@ public class MovieController implements Initializable {
 
     public MovieController ()
     {
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        txtMovieFilePath.setText("");
+        txtIMDBRating.setText("");
+        txtMovieTitle.setText("");
+        txtPersonalRating.setText("");
+        txtPicturePath.setText("");
+        edit = false;
     }
 
     public void chooseMoviePath(ActionEvent actionEvent)
@@ -101,30 +111,29 @@ public class MovieController implements Initializable {
         mainSceneModel = mainscenemodel;
     }
 
-    public void setMovieValues(int movieId, String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, String picturePath, LocalDate lastview, String categories)
+    public void setMovieValues(int movieId, String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, String picturePath, LocalDate lastview, ArrayList<Category> categories)
     {
         txtMovieFilePath.setText(filelink);
         txtIMDBRating.setText(String.valueOf(movieIMDBRating));
         txtMovieTitle.setText(movieName);
         txtPersonalRating.setText(String.valueOf(moviePersonalRating));
         txtPicturePath.setText(picturePath);
-        textAreaCategories.setText(categories);
         this.movieId = movieId;
         lastViewedDate = lastview.toString();
+        for(Category c : categories)
+            lvChosenCategories.getItems().addAll(c.getName());
         edit = true;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        txtMovieFilePath.setText("");
-        txtIMDBRating.setText("");
-        txtMovieTitle.setText("");
-        txtPersonalRating.setText("");
-        txtPicturePath.setText("");
-        textAreaCategories.setText("");
-        edit = false;
-
+    public void setLvAvailableCategories(ObservableList<Category> allCategories) {
+        for(Category c : allCategories)
+        lvAvailableCategories.getItems().add(c.getName());
     }
 
+    public void selectCategory(ActionEvent mouseEvent)
+    {
+    }
+
+    public void deSelectCategory(MouseEvent mouseEvent) {
+    }
 }

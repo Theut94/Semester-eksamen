@@ -1,5 +1,6 @@
 package bll;
 
+import be.Category;
 import be.Movie;
 import bll.util.MoviePlayer;
 import bll.util.SearchMovie;
@@ -56,6 +57,17 @@ public class MovieManager
 
     public void playMovie() throws IOException {
         MoviePlayer.main();
+    }
+
+    public ArrayList<Category> getCategoriesOfMovie(Movie movie) throws IOException {
+        CategoryManager categoryManager = new CategoryManager();
+        CatMovieManager catMovieManager = new CatMovieManager();
+
+        List<Integer> categoryIds = catMovieManager.getCategoryIdsOfMovie(movie);
+        if(categoryIds.size()!=0)
+        return categoryManager.getCategoriesOfMovie(categoryIds);
+        else
+            return null;
     }
     
 }
