@@ -2,6 +2,7 @@ package gui;
 
 import be.Category;
 import be.Movie;
+import bll.util.URLConverter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -93,13 +94,23 @@ public class MovieController implements Initializable {
         if(!edit)
         {
             LocalDate standardDate = LocalDate.of(1969,04,20);
-            mainSceneModel.createMovie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),Float.parseFloat(txtPersonalRating.getText()),txtMovieFilePath.getText(),standardDate);
+            Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),txtMovieFilePath.getText(),standardDate);
+
+            if (!txtPersonalRating.getText().isBlank())
+                movie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
+            if (!txtPicturePath.getText().isBlank())
+                movie.setPictureFilelink(URLConverter.fileLinkToURI(txtPicturePath.getText()));
+            mainSceneModel.createMovie(movie);
         }
         else
         {
             LocalDate ViewedDate = LocalDate.parse(lastViewedDate,dateTimeFormatter);
-            Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),Float.parseFloat(txtPersonalRating.getText()),txtMovieFilePath.getText(),ViewedDate);
+            Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),txtMovieFilePath.getText(),ViewedDate);
             movie.setId(movieId);
+            if (!txtPersonalRating.getText().isBlank())
+                movie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
+            if (!txtPicturePath.getText().isBlank())
+                movie.setPictureFilelink(URLConverter.fileLinkToURI(txtPicturePath.getText()));
             mainSceneModel.updateMovie(movie);
         }
         ((Stage) btnSave.getScene().getWindow()).close();

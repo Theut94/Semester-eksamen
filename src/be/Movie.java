@@ -21,22 +21,19 @@ public class Movie
     private String movieFilelink;
     private String pictureFilelink;
 
-    //We still need a Date variable.
 
-    public Movie(String movieName, float movieIMDBRating, float moviePersonalRating, String movieFilelink, LocalDate lastview)
+    public Movie(String movieName, float movieIMDBRating, String movieFilelink, LocalDate lastview)
     {
         this.movieName.set(movieName);
         this.movieIMDBRating.set(movieIMDBRating);
-        this.moviePersonalRating.set(moviePersonalRating);
         this.movieFilelink = movieFilelink;
         this.lastview = lastview;
         id.set(-1);
-        movieCategories = new ArrayList();
-
+        moviePersonalRating.set(-1);
+        movieCategories = new ArrayList<Category>();
     }
 
     // Getters and setters for the class properties
-
     public String getMovieName() {
         return movieName.get();
     }
@@ -89,12 +86,12 @@ public class Movie
     public String getCategoriesToString()
     {
         String allCategories = new String();
-        for(int i = 0; i< movieCategories.size(); i++)
+        if(movieCategories.size() != 0)
+        {for(int i = 0; i< movieCategories.size(); i++)
         {
             String addition = movieCategories.get(i).toString();
             allCategories = allCategories +addition + " ";
-
-        }
+        }}
         return allCategories;
     }
 
@@ -109,5 +106,13 @@ public class Movie
 
     public void setMovieCategories(ArrayList<Category> movieCategories) {
         this.movieCategories = movieCategories;
+    }
+
+    public void setPictureFilelink(String pictureFilelink) {
+        this.pictureFilelink = pictureFilelink;
+    }
+
+    public String getPictureFilelink() {
+        return pictureFilelink;
     }
 }

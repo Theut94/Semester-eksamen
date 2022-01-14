@@ -67,7 +67,7 @@ public class MovieManager
         if(categoryIds.size()!=0)
         return categoryManager.getCategoriesOfMovie(categoryIds);
         else
-            return null;
+            return new ArrayList<Category>();
     }
     
 }

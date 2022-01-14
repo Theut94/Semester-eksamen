@@ -52,9 +52,9 @@ public class MovieDAO
                 float ratingPersonal = rs.getFloat("ratingPersonal");
                 String filelink = rs.getString("filelink");
                 LocalDate lastview = LocalDate.parse(rs.getString("lastview"));
-                Movie movie = new Movie(movieName, ratingIMDB, ratingPersonal, filelink, lastview);
+                Movie movie = new Movie(movieName, ratingIMDB, filelink, lastview);
                 movie.setId(rs.getInt("movieId"));
-
+                movie.setMoviePersonalRating(ratingPersonal);
                 MovieManager movieManager = new MovieManager();
                 movie.setMovieCategories(movieManager.getCategoriesOfMovie(movie));
                 allMovies.add(movie);

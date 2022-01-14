@@ -64,9 +64,8 @@ public class MainSceneModel
     }
 
     // All MovieDAO functions are here
-    public void createMovie(String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, LocalDate lastview)
+    public void createMovie(Movie movie)
     {
-        Movie movie = new Movie(movieName, movieIMDBRating, moviePersonalRating,filelink,lastview);
         allMovies.add(movie);
         movieManager.createMovie(movie);
         for( Category c : movie.getMovieCategories())
@@ -108,10 +107,10 @@ public class MainSceneModel
 
     //Search function
     public void search(String keyChar) {
-        List<Movie> allMovies = movieManager.getAllMoviesToObservable();
+        //List<Movie> searchBase = movieManager.getAllMoviesToObservable();
         List<Movie> result = movieManager.getSearchedMovies(allMovies, keyChar);
-        moviesFromCategories.clear();
-        moviesFromCategories.addAll(result);
+        allMovies.clear();
+        allMovies.addAll(result);
     }
 
     // MovieController functions
@@ -139,9 +138,13 @@ public class MainSceneModel
         Stage stage = createMovieScene("Edit Movie");
         movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getMovieCategories() );
         ObservableList<Category> availableCategories = getAllCategories();
-        for(Category c : movie.getMovieCategories())
+        for(Category mc : movie.getMovieCategories())
         {
-            availableCategories.remove(c);
+            for (Category c : getAllCategories() )
+            {
+                if(mc.getId() ==c.getId())
+                    availableCategories.remove(c);
+            }
         }
         movieController.setLvAvailableCategories(availableCategories);
         stage.showAndWait();

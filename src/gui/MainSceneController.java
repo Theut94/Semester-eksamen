@@ -2,6 +2,9 @@ package gui;
 
 import be.Category;
 import be.Movie;
+import bll.util.AlertHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class MainSceneController {
@@ -51,7 +56,6 @@ public class MainSceneController {
     }
 
     public void initialize() {
-
         //Category initialize
         tcCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("categoryName"));
         try {
@@ -59,7 +63,6 @@ public class MainSceneController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         //Movie search
         movieSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -75,17 +78,30 @@ public class MainSceneController {
         mainSceneModel.playMovie();
     }
 
-    public void ChangeRating(ActionEvent actionEvent) {
-    }
+    public void ChangeRating(ActionEvent actionEvent) {}
 
-    public void OptionsMovie(ActionEvent actionEvent)
+    public void OptionsCategory(ActionEvent actionEvent) {}
+
+    public void RunCleanup(ActionEvent actionEvent)
     {
-    }
-
-    public void OptionsCategory(ActionEvent actionEvent) {
-    }
-
-    public void RunCleanup(ActionEvent actionEvent) {
+        ObservableList<Movie> cleanupList = FXCollections.observableArrayList();
+        for(Movie m : mainSceneModel.getAllMovies())
+        {
+            if(m.getLastview().isBefore(LocalDate.now().minusYears(2)) && m.getMoviePersonalRating()!=-1 && m.getMoviePersonalRating()<=6 && !m.getLastview().equals(LocalDate.of(1969,04,20)))
+                cleanupList.add(m);
+        }
+        if(!cleanupList.isEmpty())
+        {
+            tcMovieTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("movieName"));
+            tcRatingIMDB.setCellValueFactory(new PropertyValueFactory<Movie, Float>("movieIMDBRating"));
+            tcRatingPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("moviePersonalRating"));
+            tvMovies.setItems(cleanupList);
+            AlertHandler.informationAlert("You now see all movies you haven't watched in 2 years, and has a personal rating below 6");
+        }
+        else
+        {
+            AlertHandler.informationAlert("There are no movies, that needs to be cleaned up");
+        }
     }
 
     public void newMovie(ActionEvent actionEvent) throws IOException {
@@ -97,9 +113,7 @@ public class MainSceneController {
     }
 
     public void deleteMovie(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete?", ButtonType.YES,ButtonType.NO);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+        if (AlertHandler.confirmationAlert("Do you really want to delete this movie?")) {
             mainSceneModel.deleteMovie(tvMovies.getSelectionModel().getSelectedItem());
             tvMovies.getItems().remove(tvMovies.getSelectionModel().getSelectedItem());
         }
@@ -109,7 +123,6 @@ public class MainSceneController {
         tcMovieTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("movieName"));
         tcRatingIMDB.setCellValueFactory(new PropertyValueFactory<Movie, Float>("movieIMDBRating"));
         tcRatingPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("moviePersonalRating"));
-
         try {
             if(tvCategories.getSelectionModel().getSelectedItem() != null)
             {
@@ -138,7 +151,6 @@ public class MainSceneController {
                     //imgMovie.setImage(new Image("@../Media/NoImage.png"));
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
