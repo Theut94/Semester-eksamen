@@ -15,8 +15,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Optional;
 
 public class MainSceneController {
 
@@ -67,7 +65,13 @@ public class MainSceneController {
         //Movie search
         movieSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
-                mainSceneModel.search(newValue);
+                if(tvCategories.getSelectionModel().getSelectedItem()!=null)
+                {
+                    mainSceneModel.search(newValue, tvCategories.getSelectionModel().getSelectedItem());
+                    tvMovies.setItems(mainSceneModel.getSearchedMovies());
+                }
+                else
+                    AlertHandler.informationAlert("SELECT A CATEGORYDUMMY");
             } catch (Exception e) {
                 e.printStackTrace();
             }

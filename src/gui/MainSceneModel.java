@@ -13,7 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainSceneModel
@@ -26,6 +26,7 @@ public class MainSceneModel
     private ObservableList<Movie> allMovies;
     private ObservableList<Category> allCategories;
     private ObservableList<Movie> moviesFromCategories;
+    private ObservableList<Movie> searchedMovies;
 
     public MainSceneModel() throws Exception
     {
@@ -36,6 +37,8 @@ public class MainSceneModel
         allCategories.addAll(categoryManager.getAllCategoriesToObservable());
 
         moviesFromCategories = FXCollections.observableArrayList();
+
+        searchedMovies = FXCollections.observableArrayList();
     }
 
 
@@ -106,11 +109,20 @@ public class MainSceneModel
     }
 
     //Search function
-    public void search(String keyChar) {
-        //List<Movie> searchBase = movieManager.getAllMoviesToObservable();
-        List<Movie> result = movieManager.getSearchedMovies(allMovies, keyChar);
-        allMovies.clear();
-        allMovies.addAll(result);
+    public void search(String keyChar, Category category) {
+        List<Movie> searchBase;
+        if(category.getId() == 1)
+            searchBase = allMovies;
+        else
+            searchBase = moviesFromCategories;
+        List<Movie> result = movieManager.getSearchedMovies(searchBase, keyChar);
+        searchedMovies.clear();
+        searchedMovies.addAll(result);
+    }
+
+
+    public ObservableList<Movie> getSearchedMovies() {
+        return searchedMovies;
     }
 
     // MovieController functions
