@@ -45,8 +45,7 @@ public class MainSceneModel
     // All CatMovieDAO Functions are here.
     public ObservableList<Movie> getMoviesFromCategory(Category category)
     {
-        moviesFromCategories.clear();
-        moviesFromCategories.addAll(catMovieManager.getAllMoviesFromCatToObservable(category));
+        moviesFromCategories = category.getListOfMovies();
         return moviesFromCategories;
     }
 
@@ -74,11 +73,32 @@ public class MainSceneModel
         for( Category c : movie.getMovieCategories())
         {
             catMovieManager.createCatMovie(movie,c);
+            for (Category allc: allCategories)
+            {
+                if (allc.getName().equals(c.getName()))
+                {
+                    allc.getListOfMovies().add(movie);
+                }
+            }
         }
     }
     public void updateMovie(Movie movie)
     {
         movieManager.updateMovie(movie);
+        for( Category c : movie.getMovieCategories())
+        {
+            catMovieManager.createCatMovie(movie,c);
+            allMovies.remove(movie);
+            allMovies.add(movie);
+            for (Category allc: allCategories)
+            {
+                if (allc.getName().equals(c.getName()))
+                {
+                    allc.getListOfMovies().remove(movie);
+                    allc.getListOfMovies().add(movie);
+                }
+            }
+        }
     }
     public void deleteMovie(Movie movie)
     {
@@ -142,7 +162,7 @@ public class MainSceneModel
     public void newMovie() throws IOException {
         Stage stage = createMovieScene("New Movie");
         movieController.setLvAvailableCategories(getAllCategories());
-        stage.showAndWait();
+        stage.show();
     }
 
     public void editMovie(Movie movie) throws IOException

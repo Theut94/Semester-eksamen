@@ -71,7 +71,7 @@ public class MainSceneController {
                     tvMovies.setItems(mainSceneModel.getSearchedMovies());
                 }
                 else
-                    AlertHandler.informationAlert("SELECT A CATEGORYDUMMY");
+                    AlertHandler.informationAlert("Select a category before you search, please.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -147,7 +147,7 @@ public class MainSceneController {
                 lblMovieName.setText(selectedItem.getMovieName());
                 lblRatingIMDB.setText(Float.toString(selectedItem.getMovieIMDBRating()));
                 lblRatingPersonal.setText(Float.toString(selectedItem.getMoviePersonalRating()));
-                if (selectedItem.getPicturePath() != null) {
+                if (selectedItem.getPicturePath() !="") {
                     imgMovie.setImage(new Image(selectedItem.getPicturePath()));
                 }
                 else {

@@ -23,10 +23,18 @@ public class CategoryManager
         categoryDAO.createCategory(category);
     }
 
-    public ObservableList<Category> getAllCategoriesToObservable()
-    {
+    public ObservableList<Category> getAllCategoriesToObservable() throws IOException {
+
         ObservableList<Category> observableCategories = FXCollections.observableArrayList();
         observableCategories.addAll(categoryDAO.getAllCategories());
+
+
+        //Here we allow the category to know what movie there is connected to it.
+        CatMovieManager catMovieManager = new CatMovieManager();
+        for(Category c : observableCategories)
+        {
+            c.setListOfMovies(catMovieManager.getAllMoviesFromCatToObservable(c));
+        }
         return observableCategories;
     }
 
@@ -50,7 +58,5 @@ public class CategoryManager
         }
         return categoriesOfMovie;
     }
-
-
 
 }

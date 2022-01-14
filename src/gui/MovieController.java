@@ -17,7 +17,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MovieController implements Initializable {
@@ -45,7 +44,7 @@ public class MovieController implements Initializable {
     private MainSceneModel mainSceneModel;
     private boolean edit;
     private int movieId;
-    private String lastViewedDate;
+    private LocalDate lastViewedDate;
 
     public MovieController ()
     {
@@ -90,7 +89,7 @@ public class MovieController implements Initializable {
 
     public void saveMovie(ActionEvent actionEvent)
     {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if(!edit)
         {
             LocalDate standardDate = LocalDate.of(1969,04,20);
@@ -100,12 +99,23 @@ public class MovieController implements Initializable {
                 movie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
             if (!txtPicturePath.getText().isBlank())
                 movie.setPictureFilelink(URLConverter.fileLinkToURI(txtPicturePath.getText()));
+            //Sets categories for the movie created
+            ArrayList<Category> categoryList = new ArrayList<>();
+            for(String s : lvChosenCategories.getItems())
+            {
+                for (Category c : mainSceneModel.getAllCategories())
+                {
+                    if (s.equals(c.getName()))
+                        categoryList.add(c);
+                }
+            }
+            movie.setMovieCategories(categoryList);
             mainSceneModel.createMovie(movie);
         }
+
         else
         {
-            LocalDate ViewedDate = LocalDate.parse(lastViewedDate,dateTimeFormatter);
-            Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),txtMovieFilePath.getText(),ViewedDate);
+            Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),txtMovieFilePath.getText(),lastViewedDate);
             movie.setId(movieId);
             if (!txtPersonalRating.getText().isBlank())
                 movie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
@@ -130,7 +140,7 @@ public class MovieController implements Initializable {
         txtPersonalRating.setText(String.valueOf(moviePersonalRating));
         txtPicturePath.setText(picturePath);
         this.movieId = movieId;
-        lastViewedDate = lastview.toString();
+        lastViewedDate = lastview;
         for(Category c : categories)
             lvChosenCategories.getItems().addAll(c.getName());
         edit = true;
@@ -138,13 +148,22 @@ public class MovieController implements Initializable {
 
     public void setLvAvailableCategories(ObservableList<Category> allCategories) {
         for(Category c : allCategories)
-        lvAvailableCategories.getItems().add(c.getName());
+        {
+            if(c.getId() !=1)
+                lvAvailableCategories.getItems().add(c.getName());
+        }
+
     }
 
-    public void selectCategory(ActionEvent mouseEvent)
+    public void selectCategory(MouseEvent mouseEvent)
     {
+        lvChosenCategories.getItems().add(lvAvailableCategories.getSelectionModel().getSelectedItem());
+        lvAvailableCategories.getItems().remove(lvAvailableCategories.getSelectionModel().getSelectedItem());
     }
 
-    public void deSelectCategory(MouseEvent mouseEvent) {
+    public void deSelectCategory(MouseEvent mouseEvent)
+    {
+        lvAvailableCategories.getItems().add(lvChosenCategories.getSelectionModel().getSelectedItem());
+        lvChosenCategories.getItems().remove(lvChosenCategories.getSelectionModel().getSelectedItem());
     }
 }

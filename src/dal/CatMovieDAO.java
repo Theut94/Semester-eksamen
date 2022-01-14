@@ -24,10 +24,10 @@ public class CatMovieDAO
 
         try(Connection connection = DC.getConnection()) {
             String sql = "INSERT INTO CatMovie(movieId, categoryId) VALUES (?,?);";
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, movie.getId());
             ps.setInt(2, category.getId());
-
+            ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,6 +70,7 @@ public class CatMovieDAO
         }
     }
 
+    //Here we see what movies are connected to a specific category.
     public List<Integer> getMoviesFromCategory(Category category)
     {
         ArrayList<Integer> allMoviesFromCategory = new ArrayList<>();
@@ -88,6 +89,8 @@ public class CatMovieDAO
         }
         return allMoviesFromCategory;
     }
+
+    // Here we use a MovieID as input, to see what categories that specific movie has.
     public List<Integer> getCategoryIdsOfMovie(Movie movie)
     {
         ArrayList<Integer> allCategoryIdsFromMovie = new ArrayList<>();

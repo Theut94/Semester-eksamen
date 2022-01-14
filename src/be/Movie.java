@@ -31,6 +31,7 @@ public class Movie
         id.set(-1);
         moviePersonalRating.set(-1);
         movieCategories = new ArrayList<Category>();
+        pictureFilelink = "";
     }
 
     // Getters and setters for the class properties
@@ -89,7 +90,7 @@ public class Movie
         if(movieCategories.size() != 0)
         {for(int i = 0; i< movieCategories.size(); i++)
         {
-            String addition = movieCategories.get(i).toString();
+            String addition = movieCategories.get(i).getName();
             allCategories = allCategories +addition + " ";
         }}
         return allCategories;

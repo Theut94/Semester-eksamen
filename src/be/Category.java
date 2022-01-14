@@ -2,6 +2,8 @@ package be;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -12,10 +14,11 @@ public class Category
 {
     private int id;
     private StringProperty categoryName = new SimpleStringProperty();
-    private ArrayList<Movie> listOfMovies;
+    private ObservableList<Movie> listOfMovies;
 
     public Category(String name)
     {
+        listOfMovies = FXCollections.observableArrayList();
         this.categoryName.set(name);
         id=-1;
 
@@ -29,8 +32,12 @@ public class Category
         return categoryName.get();
     }
 
-    public ArrayList getListOfMovies() {
+    public ObservableList<Movie> getListOfMovies() {
         return listOfMovies;
+    }
+
+    public void setListOfMovies(ObservableList<Movie> listOfMovies) {
+        this.listOfMovies = listOfMovies;
     }
 
     public void setName(String name) {

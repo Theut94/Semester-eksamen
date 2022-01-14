@@ -20,7 +20,7 @@ public class SearchMovie {
 
         for (Movie movie : movieList)
         {
-            if (compareToTitle(movie, query) || compareToCategory(movie, query) || compareToCategory(movie, query))
+            if (compareToTitle(movie, query) || compareToCategory(movie, query))
             {
                 result.add(movie);
             }

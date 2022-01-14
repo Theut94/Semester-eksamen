@@ -52,8 +52,20 @@ public class MovieManager
 
     public List<Movie> getMoviesFromId(List<Integer> movieId)
     {
-        return movieDAO.getMovieFromId(movieId);
+        ArrayList<Movie> moviesFromCategory = new ArrayList<>();
+        ArrayList<Movie> allMovies = new ArrayList<>();
+        allMovies.addAll(movieDAO.getAllMovies());
+        for(Movie m : allMovies)
+        {
+            for(int i : movieId) {
+                if (m.getId() == i)
+                {moviesFromCategory.add(m);}
+            }
+        }
+        return moviesFromCategory;
     }
+
+
 
     public void playMovie() throws IOException {
         MoviePlayer.main();

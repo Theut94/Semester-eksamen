@@ -98,17 +98,6 @@ public class MovieDAO
         }
     }
 
-    public List<Movie> getMovieFromId(List<Integer> movieIds) {
-        ArrayList<Movie> moviesFromCategory = new ArrayList<>();
-        ArrayList<Movie> allMovies = new ArrayList<>();
-        allMovies.addAll(getAllMovies());
-        for(Movie m : allMovies)
-        {
-            for(int i : movieIds) {
-                if (m.getId() == i)
-                {moviesFromCategory.add(m);}
-            }
-        }
-        return moviesFromCategory;
-    }
+
+
 }
