@@ -89,6 +89,11 @@ public class MainSceneModel
         for( Category c : movie.getMovieCategories())
         {
             catMovieManager.createCatMovie(movie,c);
+            for (Category ac : allCategories)
+                if (ac.getName().contains(c.getName()))
+                {
+                    ac.getListOfMovies().add(movie);
+                }
         }
         allMovies.clear();
         allMovies.addAll(movieManager.getAllMoviesToObservable());
@@ -163,7 +168,7 @@ public class MainSceneModel
     {
         Stage stage = createMovieScene("Edit Movie");
         movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getMovieCategories() );
-        ObservableList<Category> availableCategories = allCategories;
+        ObservableList<Category> availableCategories = categoryManager.getAllCategoriesToObservable();
         List<Category> deleteTheseCategories = new ArrayList<>();
         for(Category mc : movie.getMovieCategories())
         {

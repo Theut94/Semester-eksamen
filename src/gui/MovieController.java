@@ -17,6 +17,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MovieController implements Initializable {
@@ -117,6 +118,19 @@ public class MovieController implements Initializable {
         {
             Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),txtMovieFilePath.getText(),lastViewedDate);
             movie.setId(movieId);
+            //Sets categories for the movie created
+            ArrayList<Category> categoryList = new ArrayList<>();
+            ObservableList<Category> allCategories = mainSceneModel.getAllCategories();
+            
+            for(String s : lvChosenCategories.getItems())
+            {
+                for (Category c : allCategories)
+                {
+                    if (s.equals(c.getName()))
+                        categoryList.add(c);
+                }
+            }
+            movie.setMovieCategories(categoryList);
             if (!txtPersonalRating.getText().isBlank())
                 movie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
             if (!txtPicturePath.getText().isBlank())
