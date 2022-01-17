@@ -3,6 +3,7 @@ package gui;
 import be.Category;
 import be.Movie;
 import bll.util.AlertHandler;
+import bll.util.MoviePlayer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,7 +80,7 @@ public class MainSceneController {
     }
 
     public void PlayMovie(ActionEvent actionEvent) throws IOException {
-        mainSceneModel.playMovie();
+        MoviePlayer.playMovie(tvMovies.getSelectionModel().getSelectedItem().getMovieFilelink());
     }
 
     public void ChangeRating(ActionEvent actionEvent) {}

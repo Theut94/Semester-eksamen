@@ -194,7 +194,5 @@ public class MainSceneModel
         allMovies.addAll(movieManager.getAllMoviesToObservable());
     }
 
-    public void playMovie() throws IOException {
-        movieManager.playMovie();
-    }
+
 }

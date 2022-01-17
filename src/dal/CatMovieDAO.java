@@ -2,12 +2,9 @@ package dal;
 
 import be.Category;
 import be.Movie;
-import bll.util.URLConverter;
-import gui.MainSceneModel;
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -2,8 +2,6 @@ package dal;
 
 import be.Movie;
 import bll.MovieManager;
-import bll.util.URLConverter;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.IOException;
 import java.sql.*;
@@ -25,7 +23,7 @@ public class MovieDAO
             ps.setString(1, movie.getMovieName());
             ps.setFloat(2, movie.getMoviePersonalRating());
             ps.setFloat(3, movie.getMovieIMDBRating());
-            ps.setString(4, URLConverter.fileLinkToURI(movie.getMovieFilelink()));
+            ps.setString(4, movie.getMovieFilelink());
             ps.setString(5, movie.getLastview().toString());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 1) {

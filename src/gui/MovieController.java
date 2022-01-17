@@ -2,7 +2,6 @@ package gui;
 
 import be.Category;
 import be.Movie;
-import bll.util.URLConverter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +16,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MovieController implements Initializable {
@@ -100,7 +98,7 @@ public class MovieController implements Initializable {
             if (!txtPersonalRating.getText().isBlank())
                 movie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
             if (!txtPicturePath.getText().isBlank())
-                movie.setPictureFilelink(URLConverter.fileLinkToURI(txtPicturePath.getText()));
+                movie.setPictureFilelink(txtPicturePath.getText());
             //Sets categories for the movie created
             ArrayList<Category> categoryList = new ArrayList<>();
             for(String s : lvChosenCategories.getItems())
@@ -137,7 +135,7 @@ public class MovieController implements Initializable {
             if (!txtPersonalRating.getText().isBlank())
                 editableMovie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
             if (!txtPicturePath.getText().isBlank())
-                editableMovie.setPictureFilelink(URLConverter.fileLinkToURI(txtPicturePath.getText()));
+                editableMovie.setPictureFilelink(txtPicturePath.getText());
             mainSceneModel.updateMovie(editableMovie);
         }
         ((Stage) btnSave.getScene().getWindow()).close();

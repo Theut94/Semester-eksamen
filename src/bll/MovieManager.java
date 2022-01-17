@@ -78,11 +78,6 @@ public class MovieManager
     }
 
 
-
-    public void playMovie() throws IOException {
-        MoviePlayer.main();
-    }
-
     /**
      * Here we get a list of a movie's Category.
      * @param movie
