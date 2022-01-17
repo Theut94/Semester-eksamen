@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MovieManager
 {
     private MovieDAO movieDAO = new MovieDAO();
@@ -23,12 +24,18 @@ public class MovieManager
         filter = new SearchMovie();
     }
 
+    /**
+     * Here we get a list of all the movies
+     */
     public ObservableList<Movie> getAllMoviesToObservable()
     {
         ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
         observableMovies.addAll(movieDAO.getAllMovies());
         return observableMovies;
     }
+
+
+
 
     public List<Movie> getSearchedMovies(List<Movie> movieList, String keyChar)
     {
@@ -50,6 +57,11 @@ public class MovieManager
         movieDAO.deleteMovie(movie);
     }
 
+    /**
+     * Here we use a list of movie ID's from a category, to get a list of movies.
+     * @param movieId
+     * @return
+     */
     public List<Movie> getMoviesFromId(List<Integer> movieId)
     {
         ArrayList<Movie> moviesFromCategory = new ArrayList<>();
@@ -71,6 +83,12 @@ public class MovieManager
         MoviePlayer.main();
     }
 
+    /**
+     * Here we get a list of a movie's Category.
+     * @param movie
+     * @return
+     * @throws IOException
+     */
     public ArrayList<Category> getCategoriesOfMovie(Movie movie) throws IOException {
         CategoryManager categoryManager = new CategoryManager();
         CatMovieManager catMovieManager = new CatMovieManager();

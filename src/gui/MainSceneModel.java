@@ -82,23 +82,17 @@ public class MainSceneModel
             }
         }
     }
+
     public void updateMovie(Movie movie)
     {
         movieManager.updateMovie(movie);
         for( Category c : movie.getMovieCategories())
         {
             catMovieManager.createCatMovie(movie,c);
-            allMovies.remove(movie);
-            allMovies.add(movie);
-            for (Category allc: allCategories)
-            {
-                if (allc.getName().equals(c.getName()))
-                {
-                    allc.getListOfMovies().remove(movie);
-                    allc.getListOfMovies().add(movie);
-                }
-            }
         }
+        allMovies.clear();
+        allMovies.addAll(movieManager.getAllMoviesToObservable());
+
     }
     public void deleteMovie(Movie movie)
     {
@@ -169,17 +163,19 @@ public class MainSceneModel
     {
         Stage stage = createMovieScene("Edit Movie");
         movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getMovieCategories() );
-        ObservableList<Category> availableCategories = getAllCategories();
+        ObservableList<Category> availableCategories = allCategories;
+        List<Category> deleteTheseCategories = new ArrayList<>();
         for(Category mc : movie.getMovieCategories())
         {
-            for (Category c : getAllCategories() )
+            for (Category c : availableCategories )
             {
                 if(mc.getId() ==c.getId())
-                    availableCategories.remove(c);
+                    deleteTheseCategories.add(c);
             }
         }
+        availableCategories.removeAll(deleteTheseCategories);
         movieController.setLvAvailableCategories(availableCategories);
-        stage.showAndWait();
+        stage.show();
     }
 
     public void playMovie() throws IOException {

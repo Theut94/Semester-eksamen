@@ -23,6 +23,11 @@ public class CategoryManager
         categoryDAO.createCategory(category);
     }
 
+    /**
+     * Here we get a list of all Categories
+     * @return
+     * @throws IOException
+     */
     public ObservableList<Category> getAllCategoriesToObservable() throws IOException {
 
         ObservableList<Category> observableCategories = FXCollections.observableArrayList();
@@ -42,11 +47,17 @@ public class CategoryManager
     {
         categoryDAO.updateCategory(category);
     }
+
     public void deleteCategory (Category category)
     {
         categoryDAO.deleteCategory(category);
     }
 
+    /**
+     * Here we get a list of categories, from a list of integers(we have the list of integers from a movie).
+     * @param categoryIds
+     * @return
+     */
     public ArrayList<Category> getCategoriesOfMovie(List<Integer> categoryIds)
     {
         ArrayList<Category> categoriesOfMovie = new ArrayList<>();

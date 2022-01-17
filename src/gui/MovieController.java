@@ -46,8 +46,7 @@ public class MovieController implements Initializable {
     private int movieId;
     private LocalDate lastViewedDate;
 
-    public MovieController ()
-    {
+    public MovieController () throws Exception {
     }
 
     @Override
@@ -59,6 +58,7 @@ public class MovieController implements Initializable {
         txtPersonalRating.setText("");
         txtPicturePath.setText("");
         edit = false;
+
     }
 
     public void chooseMoviePath(ActionEvent actionEvent)
