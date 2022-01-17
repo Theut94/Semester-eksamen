@@ -46,6 +46,7 @@ public class MovieController implements Initializable {
     private boolean edit;
     private int movieId;
     private LocalDate lastViewedDate;
+    private Movie editableMovie;
 
     public MovieController () throws Exception {
     }
@@ -116,26 +117,28 @@ public class MovieController implements Initializable {
 
         else
         {
-            Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),txtMovieFilePath.getText(),lastViewedDate);
-            movie.setId(movieId);
+           editableMovie.setMovieName(txtMovieTitle.getText());
+           editableMovie.setMovieIMDBRating(Float.parseFloat(txtIMDBRating.getText()));
+           editableMovie.setMovieFilelink(txtMovieFilePath.getText());
             //Sets categories for the movie created
-            ArrayList<Category> categoryList = new ArrayList<>();
+            ArrayList<Category> categoryList = editableMovie.getMovieCategories();
             ObservableList<Category> allCategories = mainSceneModel.getAllCategories();
-            
-            for(String s : lvChosenCategories.getItems())
+            categoryList.clear();
+            for (Category c : allCategories)
             {
-                for (Category c : allCategories)
-                {
-                    if (s.equals(c.getName()))
-                        categoryList.add(c);
+                for (String s : lvChosenCategories.getItems()) {
+                    {
+                        if (s.equals(c.getName()))
+                            categoryList.add(c);
+                    }
                 }
             }
-            movie.setMovieCategories(categoryList);
+            editableMovie.setMovieCategories(categoryList);
             if (!txtPersonalRating.getText().isBlank())
-                movie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
+                editableMovie.setMoviePersonalRating(Float.parseFloat(txtPersonalRating.getText()));
             if (!txtPicturePath.getText().isBlank())
-                movie.setPictureFilelink(URLConverter.fileLinkToURI(txtPicturePath.getText()));
-            mainSceneModel.updateMovie(movie);
+                editableMovie.setPictureFilelink(URLConverter.fileLinkToURI(txtPicturePath.getText()));
+            mainSceneModel.updateMovie(editableMovie);
         }
         ((Stage) btnSave.getScene().getWindow()).close();
     }
@@ -146,16 +149,15 @@ public class MovieController implements Initializable {
         mainSceneModel = mainscenemodel;
     }
 
-    public void setMovieValues(int movieId, String movieName, float movieIMDBRating, float moviePersonalRating, String filelink, String picturePath, LocalDate lastview, ArrayList<Category> categories)
+    public void setMovie(Movie movie)
     {
-        txtMovieFilePath.setText(filelink);
-        txtIMDBRating.setText(String.valueOf(movieIMDBRating));
-        txtMovieTitle.setText(movieName);
-        txtPersonalRating.setText(String.valueOf(moviePersonalRating));
-        txtPicturePath.setText(picturePath);
-        this.movieId = movieId;
-        lastViewedDate = lastview;
-        for(Category c : categories)
+        editableMovie = movie;
+        txtMovieFilePath.setText(movie.getMovieFilelink());
+        txtIMDBRating.setText(String.valueOf(movie.getMovieIMDBRating()));
+        txtMovieTitle.setText(movie.getMovieName());
+        txtPersonalRating.setText(String.valueOf(movie.getMoviePersonalRating()));
+        txtPicturePath.setText(movie.getPicturePath());
+        for(Category c : movie.getMovieCategories())
             lvChosenCategories.getItems().addAll(c.getName());
         edit = true;
     }

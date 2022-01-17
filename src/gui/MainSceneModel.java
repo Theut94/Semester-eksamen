@@ -85,20 +85,28 @@ public class MainSceneModel
 
     public void updateMovie(Movie movie)
     {
+        catMovieManager.deleteMovieFromCatMovie(movie);
         movieManager.updateMovie(movie);
         for( Category c : movie.getMovieCategories())
         {
             catMovieManager.createCatMovie(movie,c);
             for (Category ac : allCategories)
+            {
+                if(ac.getListOfMovies().contains(movie))
+                {
+                    ac.getListOfMovies().remove(movie);
+                }
                 if (ac.getName().contains(c.getName()))
                 {
                     ac.getListOfMovies().add(movie);
                 }
+
+            }
+
         }
-        allMovies.clear();
-        allMovies.addAll(movieManager.getAllMoviesToObservable());
 
     }
+
     public void deleteMovie(Movie movie)
     {
         catMovieManager.deleteMovieFromCatMovie(movie);
@@ -167,8 +175,9 @@ public class MainSceneModel
     public void editMovie(Movie movie) throws IOException
     {
         Stage stage = createMovieScene("Edit Movie");
-        movieController.setMovieValues(movie.getId(),movie.getMovieName(),movie.getMovieIMDBRating(),movie.getMoviePersonalRating(),movie.getMovieFilelink(),movie.getPicturePath(), movie.getLastview(), movie.getMovieCategories() );
-        ObservableList<Category> availableCategories = categoryManager.getAllCategoriesToObservable();
+        movieController.setMovie(movie);
+        ObservableList<Category> availableCategories = FXCollections.observableArrayList();
+        availableCategories.addAll(allCategories);
         List<Category> deleteTheseCategories = new ArrayList<>();
         for(Category mc : movie.getMovieCategories())
         {
@@ -180,7 +189,9 @@ public class MainSceneModel
         }
         availableCategories.removeAll(deleteTheseCategories);
         movieController.setLvAvailableCategories(availableCategories);
-        stage.show();
+        stage.showAndWait();
+        allMovies.clear();
+        allMovies.addAll(movieManager.getAllMoviesToObservable());
     }
 
     public void playMovie() throws IOException {
