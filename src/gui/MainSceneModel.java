@@ -100,17 +100,16 @@ public class MainSceneModel
                 {
                     ac.getListOfMovies().add(movie);
                 }
-
             }
-
         }
-
     }
 
     public void deleteMovie(Movie movie)
     {
         catMovieManager.deleteMovieFromCatMovie(movie);
         movieManager.deleteMovie(movie);
+        allMovies.clear();
+        allMovies.addAll(movieManager.getAllMoviesToObservable());
     }
 
     // Category functions start here !

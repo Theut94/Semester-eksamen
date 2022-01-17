@@ -114,14 +114,20 @@ public class MainSceneController {
     }
 
     public void editMovie(ActionEvent actionEvent) throws IOException {
-        mainSceneModel.editMovie(tvMovies.getSelectionModel().getSelectedItem());
+        if (tvMovies.getSelectionModel().getSelectedItem() != null)
+            mainSceneModel.editMovie(tvMovies.getSelectionModel().getSelectedItem());
+        else
+            AlertHandler.informationAlert("You haven't selected a movie");
     }
 
     public void deleteMovie(ActionEvent actionEvent) {
+        if (tvMovies.getSelectionModel().getSelectedItem() != null) {
         if (AlertHandler.confirmationAlert("Do you really want to delete this movie?")) {
             mainSceneModel.deleteMovie(tvMovies.getSelectionModel().getSelectedItem());
             tvMovies.getItems().remove(tvMovies.getSelectionModel().getSelectedItem());
-        }
+        }}
+        else
+            AlertHandler.informationAlert("You haven't selected a movie");
     }
 
     public void selectCategory(MouseEvent mouseEvent) {
