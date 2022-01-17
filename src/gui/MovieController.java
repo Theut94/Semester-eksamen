@@ -171,13 +171,21 @@ public class MovieController implements Initializable {
 
     public void selectCategory(MouseEvent mouseEvent)
     {
-        lvChosenCategories.getItems().add(lvAvailableCategories.getSelectionModel().getSelectedItem());
-        lvAvailableCategories.getItems().remove(lvAvailableCategories.getSelectionModel().getSelectedItem());
+        if (lvAvailableCategories.getSelectionModel().getSelectedItem()!=null)
+        {
+            lvChosenCategories.getItems().add(lvAvailableCategories.getSelectionModel().getSelectedItem());
+            lvAvailableCategories.getItems().remove(lvAvailableCategories.getSelectionModel().getSelectedItem());
+            lvAvailableCategories.getSelectionModel().clearSelection();
+        }
     }
 
     public void deSelectCategory(MouseEvent mouseEvent)
     {
-        lvAvailableCategories.getItems().add(lvChosenCategories.getSelectionModel().getSelectedItem());
-        lvChosenCategories.getItems().remove(lvChosenCategories.getSelectionModel().getSelectedItem());
+        if (lvChosenCategories.getSelectionModel().getSelectedItem()!= null)
+        {
+            lvAvailableCategories.getItems().add(lvChosenCategories.getSelectionModel().getSelectedItem());
+            lvChosenCategories.getItems().remove(lvChosenCategories.getSelectionModel().getSelectedItem());
+            lvChosenCategories.getSelectionModel().clearSelection();
+        }
     }
 }

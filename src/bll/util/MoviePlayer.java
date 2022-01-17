@@ -2,8 +2,6 @@ package bll.util;
 import java.io.IOException;
 
 public class MoviePlayer {
-
-   //Test method
     public static void main() throws IOException {
         String command = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
         String arg = "C:\\Users\\n0m1z\\Documents\\GitHub\\Semester-eksamen\\Movies\\Congratulations.mp4";
@@ -13,8 +11,6 @@ public class MoviePlayer {
         //Starting the process
         builder.start();
     }
-
-
     public static void playMovie (String filePath)
     {
         String command = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
@@ -23,7 +19,7 @@ public class MoviePlayer {
         try {
             builder.start();
         } catch (IOException e) {
-            AlertHandler.informationAlert("Are you sure you have located the movie correctly?");
+            e.printStackTrace();
         }
     }
 }
