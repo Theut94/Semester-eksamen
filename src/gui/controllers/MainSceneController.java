@@ -84,8 +84,12 @@ public class MainSceneController {
         });
     }
 
-    public void PlayMovie(ActionEvent actionEvent) throws IOException {
-        MoviePlayer.playMovie(tvMovies.getSelectionModel().getSelectedItem().getMovieFilelink());
+    public void PlayMovie(ActionEvent actionEvent) throws IOException
+    {
+        Movie selectedMovie = tvMovies.getSelectionModel().getSelectedItem();
+        MoviePlayer.playMovie(selectedMovie.getMovieFilelink());
+        selectedMovie.setLastview(LocalDate.now());
+        mainSceneModel.updateMovie(selectedMovie);
     }
 
     public void ChangeRating(ActionEvent actionEvent) {}
