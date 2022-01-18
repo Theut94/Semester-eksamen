@@ -90,9 +90,16 @@ public class MainSceneController {
         MoviePlayer.playMovie(selectedMovie.getMovieFilelink());
         selectedMovie.setLastview(LocalDate.now());
         mainSceneModel.updateMovie(selectedMovie);
+        lblLastView.setText(LocalDate.now().toString());
     }
 
-    public void ChangeRating(ActionEvent actionEvent) {}
+    public void ChangeRating(ActionEvent actionEvent) throws IOException {
+        Movie selectedMovie = tvMovies.getSelectionModel().getSelectedItem();
+        selectedMovie.setMoviePersonalRating(Float.parseFloat(txtUpdatedRating.getText()));
+        mainSceneModel.updateMovie(selectedMovie);
+        lblRatingPersonal.setText("" + selectedMovie.getMoviePersonalRating());
+        tvMovies.refresh();
+    }
 
 
     public void RunCleanup(ActionEvent actionEvent)
