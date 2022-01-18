@@ -21,6 +21,10 @@ import java.time.LocalDate;
 public class MainSceneController {
 
     @FXML
+    private TextField txtUpdatedRating;
+    @FXML
+    private Label lblLastView;
+    @FXML
     private ImageView imgMovie;
     @FXML
     private MenuButton menuButtonMovieOptions;
@@ -156,6 +160,7 @@ public class MainSceneController {
                 lblMovieName.setText(selectedItem.getMovieName());
                 lblRatingIMDB.setText(Float.toString(selectedItem.getMovieIMDBRating()));
                 lblRatingPersonal.setText(Float.toString(selectedItem.getMoviePersonalRating()));
+                lblLastView.setText(selectedItem.getLastview().toString());
                 if (selectedItem.getPicturePath() !="") {
                     imgMovie.setImage(new Image(selectedItem.getPicturePath()));
                 }

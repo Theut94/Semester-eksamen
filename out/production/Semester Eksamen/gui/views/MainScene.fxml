@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -15,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #60bcbe;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.MainSceneController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #60bcbe;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.MainSceneController">
     <children>
         <TableView fx:id="tvMovies" blendMode="SRC_ATOP" layoutX="200.0" layoutY="50.0" onMouseClicked="#showMovieInfo" prefHeight="450.0" prefWidth="350.0" style="-fx-background-color: transparent; -fx-border-color: #145250;">
             <columns>
@@ -37,39 +36,41 @@
         </TableView>
         <Pane layoutX="550.0" layoutY="50.0" prefHeight="450.0" prefWidth="250.0" style="-fx-border-color: #145250;">
          <children>
+            <Label fx:id="lblLastView" layoutX="17.0" layoutY="413.0" text="2000-01-01" />
             <ImageView fx:id="imgMovie" fitHeight="150.0" fitWidth="232.0" layoutX="48.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
                   <Image url="@../../Media/NoImage.png" />
                </image>
             </ImageView>
-            <Button layoutX="157.0" layoutY="301.0" mnemonicParsing="false" onAction="#PlayMovie" text="Play Movie" />
-            <DatePicker fx:id="dpLastView" layoutX="17.0" layoutY="412.0" prefHeight="25.0" prefWidth="101.0" />
-            <Label layoutX="17.0" layoutY="395.0" text="Last viewed" />
-            <Button layoutX="137.0" layoutY="412.0" mnemonicParsing="false" onAction="#ChangeRating" text="Change Rating" />
-            <Pane layoutX="43.0" layoutY="171.0" prefHeight="130.0" prefWidth="160.0">
-               <children>
-                  <Label fx:id="lblMovieName" layoutY="-3.0" text="Movie Name" underline="true">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font></Label>
-                  <Label layoutY="41.0" text="IMDB Rating: ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Label>
-                  <Label fx:id="lblRatingIMDB" layoutX="80.0" layoutY="41.0" text="N/A">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Label>
-                  <Label fx:id="lblRatingPersonal" layoutX="80.0" layoutY="67.0" text="N/A">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Label>
-                  <Label layoutY="67.0" text="My Rating: ">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Label>
-               </children>
-            </Pane>
+            <Button layoutX="161.0" layoutY="399.0" mnemonicParsing="false" onAction="#PlayMovie" text="Play Movie" />
+            <Label layoutX="17.0" layoutY="393.0" text="Last viewed" underline="true" />
+            <Button layoutX="123.0" layoutY="318.0" mnemonicParsing="false" onAction="#ChangeRating" text="Update My Rating" />
+            <Label fx:id="lblMovieName" layoutX="69.0" layoutY="172.0" text="Movie Name" underline="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="69.0" layoutY="214.0" text="IMDB Rating: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblRatingIMDB" layoutX="149.0" layoutY="214.0" text="N/A">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblRatingPersonal" layoutX="149.0" layoutY="240.0" text="N/A">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="69.0" layoutY="240.0" text="My Rating: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUpdatedRating" alignment="CENTER" layoutX="88.0" layoutY="318.0" prefHeight="25.0" prefWidth="30.0" />
          </children></Pane>
         <TextField fx:id="movieSearch" layoutX="317.0" layoutY="13.0" promptText="Search..." />
         <MenuButton fx:id="menuButtonMovieOptions" layoutX="147.0" layoutY="13.0" mnemonicParsing="false" text="Movie Options">
