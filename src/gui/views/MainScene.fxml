@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #60bcbe;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainSceneController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #60bcbe;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.MainSceneController">
     <children>
         <TableView fx:id="tvMovies" blendMode="SRC_ATOP" layoutX="200.0" layoutY="50.0" onMouseClicked="#showMovieInfo" prefHeight="450.0" prefWidth="350.0" style="-fx-background-color: transparent; -fx-border-color: #145250;">
             <columns>
@@ -39,7 +39,7 @@
          <children>
             <ImageView fx:id="imgMovie" fitHeight="150.0" fitWidth="232.0" layoutX="48.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
-                  <Image url="@../Media/NoImage.png" />
+                  <Image url="@../../Media/NoImage.png" />
                </image>
             </ImageView>
             <Button layoutX="157.0" layoutY="301.0" mnemonicParsing="false" onAction="#PlayMovie" text="Play Movie" />
@@ -79,11 +79,11 @@
                 <MenuItem mnemonicParsing="false" onAction="#deleteMovie" text="Delete" />
             </items>
         </MenuButton>
-        <MenuButton fx:id="menuButtonCategoryOptions" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#OptionsCategory" text="Category Options">
+        <MenuButton fx:id="menuButtonCategoryOptions" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" text="Category Options">
             <items>
-                <MenuItem mnemonicParsing="false" text="New" />
-                <MenuItem mnemonicParsing="false" text="Edit" />
-                <MenuItem mnemonicParsing="false" text="Delete" />
+                <MenuItem mnemonicParsing="false" onAction="#newCategory" text="New" />
+                <MenuItem mnemonicParsing="false" onAction="#editCategory" text="Edit" />
+                <MenuItem mnemonicParsing="false" onAction="#deleteCategory" text="Delete" />
             </items>
         </MenuButton>
       <ComboBox fx:id="cbMinimumRating" layoutX="466.0" layoutY="13.0" prefHeight="0.0" prefWidth="84.0" promptText="Rating" />

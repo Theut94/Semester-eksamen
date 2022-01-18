@@ -1,9 +1,10 @@
-package gui;
+package gui.controllers;
 
 import be.Category;
 import be.Movie;
-import bll.util.AlertHandler;
 import bll.util.MoviePlayer;
+import gui.AlertHandler;
+import gui.MainSceneModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -85,7 +86,6 @@ public class MainSceneController {
 
     public void ChangeRating(ActionEvent actionEvent) {}
 
-    public void OptionsCategory(ActionEvent actionEvent) {}
 
     public void RunCleanup(ActionEvent actionEvent)
     {
@@ -114,8 +114,9 @@ public class MainSceneController {
     }
 
     public void editMovie(ActionEvent actionEvent) throws IOException {
-        if (tvMovies.getSelectionModel().getSelectedItem() != null)
-            mainSceneModel.editMovie(tvMovies.getSelectionModel().getSelectedItem());
+        Movie selectedMovie = tvMovies.getSelectionModel().getSelectedItem();
+        if (selectedMovie != null)
+            mainSceneModel.editMovie(selectedMovie);
         else
             AlertHandler.informationAlert("You haven't selected a movie");
     }
@@ -135,10 +136,11 @@ public class MainSceneController {
         tcRatingIMDB.setCellValueFactory(new PropertyValueFactory<Movie, Float>("movieIMDBRating"));
         tcRatingPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("moviePersonalRating"));
         try {
-            if(tvCategories.getSelectionModel().getSelectedItem() != null)
+            Category selectedCategory = tvCategories.getSelectionModel().getSelectedItem();
+            if(selectedCategory != null)
             {
-                if(tvCategories.getSelectionModel().getSelectedItem().getId() != 1) //all movie id = 1
-                    tvMovies.setItems(mainSceneModel.getMoviesFromCategory(tvCategories.getSelectionModel().getSelectedItem()));
+                if(selectedCategory.getId() != 1) //all movie id = 1
+                    tvMovies.setItems(mainSceneModel.getMoviesFromCategory(selectedCategory));
                 else
                     tvMovies.setItems(mainSceneModel.getAllMovies());
             }
@@ -166,5 +168,33 @@ public class MainSceneController {
             e.printStackTrace();
         }
     }
+
+    public void newCategory(ActionEvent actionEvent) throws IOException {
+        mainSceneModel.newCategory();
+    }
+
+    public void editCategory(ActionEvent actionEvent) throws IOException {
+        Category selectedItem = tvCategories.getSelectionModel().getSelectedItem();
+        if(selectedItem != null)
+            if (selectedItem.getId() == 1)
+                AlertHandler.informationAlert("You cannot edit this category!");
+            else
+                mainSceneModel.editCategory(selectedItem);
+        else
+            AlertHandler.informationAlert("You haven't selected a category!");
+        tvCategories.refresh();
+    }
+
+    public void deleteCategory(ActionEvent actionEvent) {
+        Category selectedItem = tvCategories.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            if (selectedItem.getId() == 1)
+                AlertHandler.informationAlert("You cannot delete this category!");
+            else if (AlertHandler.confirmationAlert("Are you sure you want to delete the \"" + selectedItem.getName() + "\" category?"))
+                mainSceneModel.deleteCategory(selectedItem);
+        }
+        else
+            AlertHandler.informationAlert("You haven't selected a category!");
+        }
 }
 

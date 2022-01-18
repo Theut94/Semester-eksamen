@@ -1,7 +1,7 @@
-package bll.util;
+package gui;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.stage.Popup;
 
 import java.util.Optional;
 
@@ -20,6 +20,6 @@ public class AlertHandler
     public static void informationAlert(String text)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, text, ButtonType.OK);
-        alert.showAndWait();
+        alert.show();
     }
 }

@@ -1,7 +1,8 @@
-package gui;
+package gui.controllers;
 
 import be.Category;
 import be.Movie;
+import gui.MainSceneModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

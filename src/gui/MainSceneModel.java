@@ -5,6 +5,8 @@ import be.Movie;
 import bll.CatMovieManager;
 import bll.CategoryManager;
 import bll.MovieManager;
+import gui.controllers.CategoryController;
+import gui.controllers.MovieController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,7 @@ public class MainSceneModel
     private CatMovieManager catMovieManager = new CatMovieManager();
     private MovieManager movieManager = new MovieManager();
     private MovieController movieController;
+    private CategoryController categoryController;
 
     private ObservableList<Movie> allMovies;
     private ObservableList<Category> allCategories;
@@ -91,18 +94,16 @@ public class MainSceneModel
         {
             catMovieManager.createCatMovie(movie,c);
             moviesToDeleteFromCat.clear();
-            for (Category ac : allCategories)
-            {
-                for(int i = 0 ; i< ac.getListOfMovies().size() ; i++)
+                for(int i = 0 ; i< c.getListOfMovies().size() ; i++)
                 {
                     if(c.getListOfMovies().get(i).getId() == movie.getId())
                     {
-                    moviesToDeleteFromCat.add(ac.getListOfMovies().get(i));
+                        moviesToDeleteFromCat.add(c.getListOfMovies().get(i));
                     }
                 }
                 if(!moviesToDeleteFromCat.isEmpty())
                     c.getListOfMovies().removeAll(moviesToDeleteFromCat);
-                }
+
             for (Category ac : allCategories)
             {
                 if (ac.getName().contains(c.getName()))
@@ -131,12 +132,20 @@ public class MainSceneModel
 
     public void updateCategory(Category category)
     {
+        for (Category c : allCategories){
+            if(c.getId() == category.getId()){
+                c.setName(category.getName());
+            }
+        }
         categoryManager.updateCategory(category);
     }
 
     public void deleteCategory(Category category)
     {
+        catMovieManager.deleteCategoryFromCatMovie(category);
         categoryManager.deleteCategory(category);
+        allCategories.remove(category);
+        moviesFromCategories.clear();
     }
 
     public ObservableList<Category> getAllCategories() {
@@ -163,7 +172,7 @@ public class MainSceneModel
     // MovieController functions
     public Stage createMovieScene(String windowTitle) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("Movie.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("views/Movie.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -171,6 +180,19 @@ public class MainSceneModel
         stage.initModality(Modality.WINDOW_MODAL);
         movieController = fxmlLoader.getController();
         movieController.setMainSceneModel(this);
+        return stage;
+    }
+
+    public Stage createCategoryScene() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("views/Category.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("New/Edit Category");
+        stage.initModality(Modality.WINDOW_MODAL);
+        categoryController = fxmlLoader.getController();
+        categoryController.setMainSceneModel(this);
         return stage;
     }
 
@@ -200,7 +222,20 @@ public class MainSceneModel
         stage.showAndWait();
         allCategories.clear();
         allCategories.addAll(categoryManager.getAllCategoriesToObservable());
+
     }
 
+    public void newCategory() throws IOException {
+        Stage stage = createCategoryScene();
+        stage.show();
+    }
+
+    public void editCategory(Category category) throws IOException {
+        Stage stage = createCategoryScene();
+        categoryController.setTxtName(category.getName());
+        categoryController.setCategory(category);
+        categoryController.setEdit();
+        stage.showAndWait();
+    }
 
 }
