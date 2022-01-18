@@ -33,5 +33,6 @@ public class Main extends Application
             primaryStage.setX(event.getScreenX() + xOffset);
             primaryStage.setY(event.getScreenY() + yOffset);
         });
+        AlertHandler.informationAlert("Click \"Run Cleanup\" to check for bad movies you havn't watched in a long time");
     }
 }
