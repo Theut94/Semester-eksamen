@@ -11,6 +11,11 @@ public class MoviePlayer {
         //Starting the process
         builder.start();
     }
+
+    /**
+     * Opens the selected movie in Windows Media Player
+     * @param filePath - the path of the movie to be played
+     */
     public static void playMovie (String filePath)
     {
         String command = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";

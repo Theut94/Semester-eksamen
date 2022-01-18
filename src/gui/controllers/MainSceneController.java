@@ -27,10 +27,6 @@ public class MainSceneController {
     @FXML
     private ImageView imgMovie;
     @FXML
-    private MenuButton menuButtonMovieOptions;
-    @FXML
-    private MenuButton menuButtonCategoryOptions;
-    @FXML
     private TableView<Movie>tvMovies;
     @FXML
     private TableColumn <Movie, String> tcMovieTitle;
@@ -43,8 +39,6 @@ public class MainSceneController {
     @FXML
     private TableColumn<Category, String> tcCategory;
     @FXML
-    private DatePicker dpLastView;
-    @FXML
     private Label lblMovieName;
     @FXML
     private Label lblRatingIMDB;
@@ -53,7 +47,7 @@ public class MainSceneController {
     @FXML
     private TextField movieSearch;
 
-    private MainSceneModel mainSceneModel = new MainSceneModel();
+    private MainSceneModel mainSceneModel;
 
     public MainSceneController() throws Exception {
         mainSceneModel = new MainSceneModel();

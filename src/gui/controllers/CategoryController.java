@@ -19,6 +19,9 @@ public class CategoryController {
         edit = false;
     }
 
+    /**
+     * Creates a new category or updates the name of the category being edited
+     */
     public void btnSave(ActionEvent actionEvent) {
         if(!txtName.getText().trim().equals("")){
             if(!edit)
@@ -33,16 +36,22 @@ public class CategoryController {
             AlertHandler.informationAlert("Name cannot be empty");
     }
 
+    /**
+     * Closes the window without making any changes
+     */
     public void btnCancel(ActionEvent actionEvent) {
         ((Stage) txtName.getScene().getWindow()).close();
     }
 
+    /**
+     * Sets the reference to MainSceneModel
+     */
     public void setMainSceneModel(MainSceneModel mainSceneModel) {
         this.mainSceneModel = mainSceneModel;
     }
 
-    public void setTxtName(String text){
-        txtName.setText(text);
+    public void setTxtName(String name){
+        txtName.setText(name);
     }
 
     public void setEdit(){
