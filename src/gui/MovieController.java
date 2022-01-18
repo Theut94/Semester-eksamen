@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -87,8 +88,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void saveMovie(ActionEvent actionEvent)
-    {
+    public void saveMovie(ActionEvent actionEvent) throws IOException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if(!edit)
         {
