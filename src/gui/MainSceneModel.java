@@ -153,12 +153,8 @@ public class MainSceneModel
     }
 
     //Search function
-    public void search(String keyChar, Category category) {
-        List<Movie> searchBase;
-        if(category.getId() == 1)
-            searchBase = allMovies;
-        else
-            searchBase = moviesFromCategories;
+    public void search(String keyChar, List<Movie> searchBase) {
+
         List<Movie> result = movieManager.getSearchedMovies(searchBase, keyChar);
         searchedMovies.clear();
         searchedMovies.addAll(result);

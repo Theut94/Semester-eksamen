@@ -5,6 +5,8 @@ import be.Movie;
 import bll.util.MoviePlayer;
 import gui.AlertHandler;
 import gui.MainSceneModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,13 +18,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-public class MainSceneController {
+public class MainSceneController{
 
     @FXML
-    private ComboBox cbMinimumRating;
+    private ComboBox<Integer> cbMinimumRating;
     @FXML
     private TextField txtUpdatedRating;
     @FXML
@@ -50,8 +55,10 @@ public class MainSceneController {
     @FXML
     private TextField movieSearch;
 
+
     private MainSceneModel mainSceneModel;
     Image noImage;
+    private ObservableList<Movie> originalList = FXCollections.observableArrayList();
 
     public MainSceneController() throws Exception {
         mainSceneModel = new MainSceneModel();
@@ -67,24 +74,36 @@ public class MainSceneController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //Rating-searcher 1-10
+        cbMinimumRating.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        cbMinimumRating.setVisibleRowCount(10);
+        ObservableList<Movie> approvedMovies = FXCollections.observableArrayList();
 
+        cbMinimumRating.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+            tvMovies.setItems(originalList);
+            approvedMovies.clear();
+            for (Movie m : tvMovies.getItems()) {
+                if (m.getMovieIMDBRating() >= Float.parseFloat(newValue.toString()))
+                    approvedMovies.add(m);
+            }
+            for (int i = 0 ; i<approvedMovies.size() ; i++)
+                System.out.println(approvedMovies.get(i));
+            if (!approvedMovies.isEmpty())
+                tvMovies.setItems(approvedMovies);
+        });
         //Movie search
         movieSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
-                if(tvCategories.getSelectionModel().getSelectedItem()!=null)
-                {
-                    mainSceneModel.search(newValue, tvCategories.getSelectionModel().getSelectedItem());
+                if (tvCategories.getSelectionModel().getSelectedItem() != null) {
+                    mainSceneModel.search(newValue, approvedMovies);
                     tvMovies.setItems(mainSceneModel.getSearchedMovies());
-                }
-                else
+                } else
                     AlertHandler.informationAlert("Select a category before you search, please.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-        //Rating-searcher 1-10
-        cbMinimumRating.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        cbMinimumRating.setVisibleRowCount(10);
+
     }
     
 
@@ -170,13 +189,20 @@ public class MainSceneController {
             if(selectedCategory != null)
             {
                 if(selectedCategory.getId() != 1) //all movie id = 1
+                {
                     tvMovies.setItems(mainSceneModel.getMoviesFromCategory(selectedCategory));
+                    originalList.setAll(mainSceneModel.getMoviesFromCategory(selectedCategory));
+                }
                 else
+                {
                     tvMovies.setItems(mainSceneModel.getAllMovies());
+                    originalList.setAll(mainSceneModel.getAllMovies());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public void showMovieInfo(MouseEvent mouseEvent) {
@@ -226,5 +252,7 @@ public class MainSceneController {
         else
             AlertHandler.informationAlert("You haven't selected a category!");
         }
+
+
 }
 

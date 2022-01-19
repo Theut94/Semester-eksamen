@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #60bcbe;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.MainSceneController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #60bcbe;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.MainSceneController">
     <children>
         <TableView fx:id="tvMovies" blendMode="SRC_ATOP" layoutX="200.0" layoutY="50.0" onMouseClicked="#showMovieInfo" prefHeight="450.0" prefWidth="350.0" style="-fx-background-color: transparent; -fx-border-color: #145250;">
             <columns>
@@ -87,7 +87,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#deleteCategory" text="Delete" />
             </items>
         </MenuButton>
-      <ComboBox fx:id="cbMinimumRating" layoutX="466.0" layoutY="13.0" prefHeight="0.0" prefWidth="84.0" promptText="Rating" />
+      <ComboBox fx:id="cbMinimumRating" layoutX="466.0" layoutY="13.0" prefHeight="25.0" prefWidth="112.0" promptText="IMDB Rating" />
       <Button layoutX="708.0" layoutY="13.0" mnemonicParsing="false" onAction="#RunCleanup" text="Run Cleanup" />
     </children>
 </AnchorPane>
