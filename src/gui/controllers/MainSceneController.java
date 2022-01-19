@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 
 public class MainSceneController {
@@ -48,12 +49,15 @@ public class MainSceneController {
     private TextField movieSearch;
 
     private MainSceneModel mainSceneModel;
+    Image noImage;
 
     public MainSceneController() throws Exception {
         mainSceneModel = new MainSceneModel();
+
     }
 
     public void initialize() {
+        noImage = imgMovie.getImage();
         //Category initialize
         tcCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("categoryName"));
         try {
@@ -170,8 +174,7 @@ public class MainSceneController {
                     imgMovie.setImage(new Image(selectedItem.getPicturePath()));
                 }
                 else {
-                    //Set image to "NoImage.png", line below doesn't work
-                    //imgMovie.setImage(new Image("@../Media/NoImage.png"));
+                    imgMovie.setImage(noImage);
                 }
             }
         } catch (Exception e) {
