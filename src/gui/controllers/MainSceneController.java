@@ -5,8 +5,6 @@ import be.Movie;
 import bll.util.MoviePlayer;
 import gui.AlertHandler;
 import gui.MainSceneModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,12 +15,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import javax.swing.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class MainSceneController{
 
@@ -62,7 +56,6 @@ public class MainSceneController{
 
     public MainSceneController() throws Exception {
         mainSceneModel = new MainSceneModel();
-
     }
 
     public void initialize() {
@@ -113,7 +106,11 @@ public class MainSceneController{
 
     }
 
-    public void PlayMovie(ActionEvent actionEvent) throws IOException
+    /**
+     * Gets the selected movie and passes it on to be play.
+     * Updates the "Last view" date of the movie
+     */
+    public void playMovie(ActionEvent actionEvent) throws IOException
     {
         Movie selectedMovie = tvMovies.getSelectionModel().getSelectedItem();
         MoviePlayer.playMovie(selectedMovie.getMovieFilelink());
@@ -122,7 +119,10 @@ public class MainSceneController{
         lblLastView.setText(LocalDate.now().toString());
     }
 
-    public void ChangeRating(ActionEvent actionEvent) throws IOException {
+    /**
+     * Updates the personal rating of the currently selected movie
+     */
+    public void changeRating(ActionEvent actionEvent) throws IOException {
         boolean isStringANumber = true;
         try{
             Float.parseFloat(txtUpdatedRating.getText());
@@ -142,7 +142,12 @@ public class MainSceneController{
         }
     }
 
-    public void RunCleanup(ActionEvent actionEvent)
+    /**
+     * Checks if there are any movies that has a personal rating under 6 and has not been viewed in over 2 years.
+     * If any such movies exist they are shown in the table view for movies.
+     * The user is shown an information alert whether there are movies to be cleaned or not
+     */
+    public void runCleanup(ActionEvent actionEvent)
     {
         ObservableList<Movie> cleanupList = FXCollections.observableArrayList();
         for(Movie m : mainSceneModel.getAllMovies())
@@ -164,10 +169,16 @@ public class MainSceneController{
         }
     }
 
+    /**
+     * Starts the process of creating a new movie
+     */
     public void newMovie(ActionEvent actionEvent) throws IOException {
         mainSceneModel.newMovie();
     }
 
+    /**
+     * Gets the selected movie and sends it to the model to be edited
+     */
     public void editMovie(ActionEvent actionEvent) throws IOException {
         Movie selectedMovie = tvMovies.getSelectionModel().getSelectedItem();
         if (selectedMovie != null)
@@ -176,6 +187,9 @@ public class MainSceneController{
             AlertHandler.informationAlert("You haven't selected a movie");
     }
 
+    /**
+     * Gets the selected movie and send it to the model to be deleted
+     */
     public void deleteMovie(ActionEvent actionEvent) {
         if (tvMovies.getSelectionModel().getSelectedItem() != null) {
         if (AlertHandler.confirmationAlert("Do you really want to delete this movie?")) {
@@ -186,6 +200,9 @@ public class MainSceneController{
             AlertHandler.informationAlert("You haven't selected a movie");
     }
 
+    /**
+     * When a category is clicked, sets the movie table view to show the movies in that category
+     */
     public void selectCategory(MouseEvent mouseEvent) {
         tcMovieTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("movieName"));
         tcRatingIMDB.setCellValueFactory(new PropertyValueFactory<Movie, Float>("movieIMDBRating"));
@@ -213,6 +230,9 @@ public class MainSceneController{
         }
     }
 
+    /**
+     * When a movie is clicked, sets the information of the movie in the appropriate fields on the right-side pane
+     */
     public void showMovieInfo(MouseEvent mouseEvent) {
         try{
             Movie selectedItem = tvMovies.getSelectionModel().getSelectedItem();
@@ -233,10 +253,16 @@ public class MainSceneController{
         }
     }
 
+    /**
+     * Starts the process of creating a new category
+     */
     public void newCategory(ActionEvent actionEvent) throws IOException {
         mainSceneModel.newCategory();
     }
 
+    /**
+     * Gets the selected category and sends it to the model to be edited
+     */
     public void editCategory(ActionEvent actionEvent) throws IOException {
         Category selectedItem = tvCategories.getSelectionModel().getSelectedItem();
         if(selectedItem != null)
@@ -249,6 +275,10 @@ public class MainSceneController{
         tvCategories.refresh();
     }
 
+    /**
+     * Gets the selected category and sends it to the model to be deleted
+     * @param actionEvent
+     */
     public void deleteCategory(ActionEvent actionEvent) {
         Category selectedItem = tvCategories.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
@@ -259,8 +289,6 @@ public class MainSceneController{
         }
         else
             AlertHandler.informationAlert("You haven't selected a category!");
-        }
-
-
+    }
 }
 
