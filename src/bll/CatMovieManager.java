@@ -3,7 +3,6 @@ package bll;
 import be.Category;
 import be.Movie;
 import dal.CatMovieDAO;
-import dal.MovieDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,50 +16,57 @@ public class CatMovieManager
 
 
     public CatMovieManager() throws IOException {
-
     }
 
-    public void createCatMovie(Movie movie, Category category)
-    {
+    /**
+     * Connects to CatMovieDAO to create the connection between the given movie and category
+     */
+    public void createCatMovie(Movie movie, Category category) {
         catMovieDAO.createCatMovie(movie, category);
     }
 
-    public void deleteCatMovie(Movie movie, Category category)
-    {
+    /**
+     * Connects to CatMovieDAO to delete a specific connection between the given movie and category
+     */
+    public void deleteCatMovie(Movie movie, Category category) {
         catMovieDAO.deleteOneCatMovie(movie, category);
     }
+
+    /**
+     * Connects to CatMovieDAO to delete all connections to the given movie
+     */
     public void deleteMovieFromCatMovie(Movie movie)
     {
         catMovieDAO.deleteMovieFromCatMovie(movie);
     }
 
+    /**
+     * Connects to CatMovieDAO to delete all connections to the given category
+     */
     public void deleteCategoryFromCatMovie(Category category)
     {
         catMovieDAO.deleteCategoryFromCatMovie(category);
     }
 
     /**
-     * Here we get a list of movies from a single category.
-     * We do so by using catMovieDAO to get a list of integer(MovieIds from a category),
-     * and we use movieManager to get movies from the list of Ids
-     * @param category
-     * @return
+     * Connects to CatMovieDAO to get all IDs of movies belonging to the given category,
+     * then connects to MovieManager to get the IDs converted to Movie objects.
+     * The movies are the added to an observable list
+     * @param category - the category to find the movies of
+     * @return list of movies belonging to the category
      */
-    public ObservableList<Movie> getAllMoviesFromCatToObservable(Category category)
-    {
+    public ObservableList<Movie> getAllMoviesFromCatToObservable(Category category) {
         ObservableList<Movie> observableMoviesFromCatMovie = FXCollections.observableArrayList();
         observableMoviesFromCatMovie.addAll(movieManager.getMoviesFromId(catMovieDAO.getMoviesFromCategory(category)));
         return observableMoviesFromCatMovie;
     }
 
     /**
-     * Here we get a list of categoryId's from a single Movie.
-     * @param movie
-     * @return
+     * Connects to CatMovieDAO to get a list of category IDs on which the given movie appears
+     * @param movie - the movie to find the categories of
+     * @return list of category IDs
      */
-    public List<Integer> getCategoryIdsOfMovie(Movie movie)
-    {
+    public List<Integer> getCategoryIdsOfMovie(Movie movie) {
         return catMovieDAO.getCategoryIdsOfMovie(movie);
     }
-
 }

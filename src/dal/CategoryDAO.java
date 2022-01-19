@@ -1,14 +1,10 @@
 package dal;
 
 import be.Category;
-import be.Movie;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryDAO {
     private DatabaseConnector DC = new DatabaseConnector();
@@ -17,9 +13,9 @@ public class CategoryDAO {
     }
 
     /**
-     * Here we use a preparedstatement, so we can alter the statement before we execute it.
-     * If the execute is succesful (affectedRows = 1), we use the resultset to set the id of the Category.
-     * @param category
+     * Creates a new category with the provided information in the Category table in the database,
+     * then sets the ID of the category to match the ID given by the database
+     * @param category - the category to be created
      */
     public void createCategory(Category category) {
         try (Connection connection = DC.getConnection()) {
@@ -62,8 +58,8 @@ public class CategoryDAO {
     }
 
     /**
-     * Updates a specific category based on the category id.
-     * @param category
+     * Updates the information of a specific category on the Category table, based on the category ID
+     * @param category - category to be updated
      */
     public void updateCategory(Category category)
     {
@@ -80,8 +76,8 @@ public class CategoryDAO {
     }
 
     /**
-     * Deletes a category.
-     * @param category
+     * Deletes a specific category from the Category table based on the category ID
+     * @param category - the category to be deleted
      */
     public void deleteCategory(Category category)
     {

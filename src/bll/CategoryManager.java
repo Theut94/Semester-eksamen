@@ -61,7 +61,8 @@ public class CategoryManager
     }
 
     /**
-     * Here we get a list of categories, from a list of integers(we have the list of integers from a movie).
+     * Connects to CategoryDAO to get the categories with specific IDs, from the provided list of integers.
+     * The categories are then added to a new list
      * @param categoryIds - list of category IDs
      * @return a list of categories
      */
