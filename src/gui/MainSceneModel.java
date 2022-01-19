@@ -44,31 +44,29 @@ public class MainSceneModel
         searchedMovies = FXCollections.observableArrayList();
     }
 
-
-    // All CatMovieDAO Functions are here.
-    public ObservableList<Movie> getMoviesFromCategory(Category category)
-    {
+    /**
+     * Fetches a list of the movies in the provided category
+     * @param category - the category to find the movies of
+     * @return an observable list of the movies in the category
+     */
+    public ObservableList<Movie> getMoviesFromCategory(Category category) {
         moviesFromCategories = category.getListOfMovies();
         return moviesFromCategories;
     }
 
-    public void createCatMovie( Movie movie,Category category)
-    {
-        catMovieManager.createCatMovie(movie,category);
-    }
-
-    public void deleteCatMovie(Movie movie, Category category)
-    {
-        catMovieManager.deleteCatMovie(movie, category);
-    }
-
-    // Get all Movies function.
+    /**
+     * @return an observable list of all movies
+     */
     public ObservableList<Movie> getAllMovies()
     {
         return allMovies;
     }
 
-    // All MovieDAO functions are here
+    /**
+     * Adds the new movie to the AllMovies list as well as the categories it belongs to.
+     * Passes the movie on to be created in the database
+     * @param movie - the movie to be created
+     */
     public void createMovie(Movie movie)
     {
         allMovies.add(movie);
@@ -86,34 +84,38 @@ public class MainSceneModel
         }
     }
 
+    /**
+     * Passes the updated movie be updated in the database and updates which lists it is on
+     * @param movie - the movie to be updated
+     */
     public void updateMovie(Movie movie) throws IOException {
         List<Movie> moviesToDeleteFromCat = new ArrayList<>();
         catMovieManager.deleteMovieFromCatMovie(movie);
         movieManager.updateMovie(movie);
-        for( Category c : movie.getMovieCategories())
-        {
+        for( Category c : movie.getMovieCategories()) {
             catMovieManager.createCatMovie(movie,c);
             moviesToDeleteFromCat.clear();
-                for(int i = 0 ; i< c.getListOfMovies().size() ; i++)
-                {
-                    if(c.getListOfMovies().get(i).getId() == movie.getId())
-                    {
+                for(int i = 0 ; i< c.getListOfMovies().size() ; i++) {
+                    if(c.getListOfMovies().get(i).getId() == movie.getId()) {
                         moviesToDeleteFromCat.add(c.getListOfMovies().get(i));
                     }
                 }
                 if(!moviesToDeleteFromCat.isEmpty())
                     c.getListOfMovies().removeAll(moviesToDeleteFromCat);
 
-            for (Category ac : allCategories)
-            {
-                if (ac.getName().contains(c.getName()))
-                {
+            for (Category ac : allCategories) {
+                if (ac.getName().contains(c.getName())) {
                     ac.getListOfMovies().add(movie);
                 }
             }
         }
     }
 
+    /**
+     * Passes the movie to be deleted in the database,
+     * then fetches the AllMovies list and replaces the previous one
+     * @param movie - the movie to be deleted
+     */
     public void deleteMovie(Movie movie)
     {
         catMovieManager.deleteMovieFromCatMovie(movie);
@@ -122,16 +124,21 @@ public class MainSceneModel
         allMovies.addAll(movieManager.getAllMoviesToObservable());
     }
 
-    // Category functions start here !
-    public void createCategory(String categoryName)
-    {
+    /**
+     * Creates a new category, adds it to the list of categories and passes it to be created in the database
+     * @param categoryName - the name of the category to be created
+     */
+    public void createCategory(String categoryName) {
         Category cat = new Category(categoryName);
         allCategories.add(cat);
         categoryManager.createCategory(cat);
     }
 
-    public void updateCategory(Category category)
-    {
+    /**
+     * Updates the name of the category with the new one, then passes it to be updated in the database
+     * @param category - the category being updated
+     */
+    public void updateCategory(Category category) {
         for (Category c : allCategories){
             if(c.getId() == category.getId()){
                 c.setName(category.getName());
@@ -140,64 +147,43 @@ public class MainSceneModel
         categoryManager.updateCategory(category);
     }
 
-    public void deleteCategory(Category category)
-    {
+    /**
+     * Deletes the category from allCategories and clears moviesFromCategories,
+     * Then passes the category to be deleted in the database
+     * @param category - the category to be deleted
+     */
+    public void deleteCategory(Category category) {
         catMovieManager.deleteCategoryFromCatMovie(category);
         categoryManager.deleteCategory(category);
         allCategories.remove(category);
         moviesFromCategories.clear();
     }
 
-    public ObservableList<Category> getAllCategories() {
-        return allCategories;
-    }
-
-    //Search function
+    /**
+     * Handles the search function. Updates searchedMovies to contain the list of movies from the search
+     * @param keyChar - the query to search on
+     * @param searchBase - the list of movies to be searched in
+     */
     public void search(String keyChar, List<Movie> searchBase) {
-
         List<Movie> result = movieManager.getSearchedMovies(searchBase, keyChar);
         searchedMovies.clear();
         searchedMovies.addAll(result);
     }
 
-
-    public ObservableList<Movie> getSearchedMovies() {
-        return searchedMovies;
-    }
-
-    // MovieController functions
-    public Stage createMovieScene(String windowTitle) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("views/Movie.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle(windowTitle);
-        stage.initModality(Modality.WINDOW_MODAL);
-        movieController = fxmlLoader.getController();
-        movieController.setMainSceneModel(this);
-        return stage;
-    }
-
-    public Stage createCategoryScene() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("views/Category.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("New/Edit Category");
-        stage.initModality(Modality.WINDOW_MODAL);
-        categoryController = fxmlLoader.getController();
-        categoryController.setMainSceneModel(this);
-        return stage;
-    }
-
+    /**
+     * Opens a new "Movie" window to create a new movie
+     */
     public void newMovie() throws IOException {
         Stage stage = createMovieScene("New Movie");
         movieController.setLvAvailableCategories(getAllCategories());
         stage.show();
     }
 
+    /**
+     * Opens a new "Movie" window to edit a movie. The current information of the movie is automatically
+     * filled out
+     * @param movie - the movie being edited
+     */
     public void editMovie(Movie movie) throws IOException
     {
         Stage stage = createMovieScene("Edit Movie");
@@ -221,15 +207,64 @@ public class MainSceneModel
 
     }
 
+    /**
+     * Opens a new "Category" window to create a new category
+     */
     public void newCategory() throws IOException {
         Stage stage = createCategoryScene();
         stage.show();
     }
 
+    /**
+     * Opens a new "Category" window to edit a category. The current name of the category is
+     * automatically filled out
+     * @param category - the category being edited
+     */
     public void editCategory(Category category) throws IOException {
         Stage stage = createCategoryScene();
         categoryController.setEditCategory(category);
         stage.showAndWait();
     }
 
+    /**
+     * Prepares a "Movie" window
+     * @return the stage of the new window
+     */
+    public Stage createMovieScene(String windowTitle) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("views/Movie.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle(windowTitle);
+        stage.initModality(Modality.WINDOW_MODAL);
+        movieController = fxmlLoader.getController();
+        movieController.setMainSceneModel(this);
+        return stage;
+    }
+
+    /**
+     * Prepares a "Category" window
+     * @return the stage of the new window
+     */
+    public Stage createCategoryScene() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("views/Category.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("New/Edit Category");
+        stage.initModality(Modality.WINDOW_MODAL);
+        categoryController = fxmlLoader.getController();
+        categoryController.setMainSceneModel(this);
+        return stage;
+    }
+
+    public ObservableList<Category> getAllCategories() {
+        return allCategories;
+    }
+
+    public ObservableList<Movie> getSearchedMovies() {
+        return searchedMovies;
+    }
 }
