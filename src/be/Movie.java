@@ -2,7 +2,6 @@ package be;
 
 import javafx.beans.property.*;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

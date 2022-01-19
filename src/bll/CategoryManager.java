@@ -1,7 +1,6 @@
 package bll;
 
 import be.Category;
-import be.Movie;
 import dal.CategoryDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
