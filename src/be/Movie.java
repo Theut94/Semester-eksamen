@@ -34,6 +34,21 @@ public class Movie
         pictureFilelink = "";
     }
 
+    /**
+     * Converts the movie's list of categories to a string
+     * @return a string containing the categories of the movie
+     */
+    public String getCategoriesToString() {
+        String allCategories = new String();
+        if(movieCategories.size() != 0)
+        {for(int i = 0; i< movieCategories.size(); i++)
+        {
+            String addition = movieCategories.get(i).getName();
+            allCategories = allCategories +addition + " ";
+        }}
+        return allCategories;
+    }
+
     // Getters and setters for the class properties
     public String getMovieName() {
         return movieName.get();
@@ -83,25 +98,11 @@ public class Movie
         this.id.set(id);
     }
 
-
-    public String getCategoriesToString()
-    {
-        String allCategories = new String();
-        if(movieCategories.size() != 0)
-        {for(int i = 0; i< movieCategories.size(); i++)
-        {
-            String addition = movieCategories.get(i).getName();
-            allCategories = allCategories +addition + " ";
-        }}
-        return allCategories;
-    }
-
     public ArrayList<Category> getMovieCategories() {
         return movieCategories;
     }
 
-    public String getPicturePath()
-    {
+    public String getPictureFilelink() {
        return pictureFilelink;
     }
 
@@ -111,9 +112,5 @@ public class Movie
 
     public void setPictureFilelink(String pictureFilelink) {
         this.pictureFilelink = pictureFilelink;
-    }
-
-    public String getPictureFilelink() {
-        return pictureFilelink;
     }
 }

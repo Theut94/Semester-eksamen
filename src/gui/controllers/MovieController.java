@@ -197,7 +197,7 @@ public class MovieController implements Initializable {
         txtIMDBRating.setText(String.valueOf(movie.getMovieIMDBRating()));
         txtMovieTitle.setText(movie.getMovieName());
         txtPersonalRating.setText(String.valueOf(movie.getMoviePersonalRating()));
-        txtPicturePath.setText(movie.getPicturePath());
+        txtPicturePath.setText(movie.getPictureFilelink());
         for(Category c : movie.getMovieCategories())
             lvChosenCategories.getItems().addAll(c.getName());
         edit = true;

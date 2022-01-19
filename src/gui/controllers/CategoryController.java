@@ -50,15 +50,14 @@ public class CategoryController {
         this.mainSceneModel = mainSceneModel;
     }
 
-    public void setTxtName(String name){
-        txtName.setText(name);
-    }
-
-    public void setEdit(){
-        edit = true;
-    }
-
-    public void setCategory(Category category) {
+    /**
+     * Sets the reference to the category being edited, fills its name into the text field
+     * and sets the edit variable to true
+     * @param category - the category being edited
+     */
+    public void setEditCategory(Category category){
         this.category = category;
+        txtName.setText(category.getName());
+        edit = true;
     }
 }

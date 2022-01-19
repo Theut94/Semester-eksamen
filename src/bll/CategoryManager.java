@@ -12,14 +12,13 @@ import java.util.List;
 
 public class CategoryManager
 {
-    private CategoryDAO categoryDAO = new CategoryDAO();
+    private CategoryDAO categoryDAO;
 
     public CategoryManager() throws IOException {
-
+        categoryDAO = new CategoryDAO();
     }
 
-    public void createCategory(Category category)
-    {
+    public void createCategory(Category category) {
         categoryDAO.createCategory(category);
     }
 
@@ -29,10 +28,8 @@ public class CategoryManager
      * @throws IOException
      */
     public ObservableList<Category> getAllCategoriesToObservable() throws IOException {
-
         ObservableList<Category> observableCategories = FXCollections.observableArrayList();
         observableCategories.addAll(categoryDAO.getAllCategories());
-
 
         //Here we allow the category to know what movie there is connected to it.
         CatMovieManager catMovieManager = new CatMovieManager();
@@ -42,12 +39,19 @@ public class CategoryManager
         }
         return observableCategories;
     }
-
+    /**
+     * Connects to CategoryDAO to update the information of a specific movie
+     * @param category to be updated
+     */
     public void updateCategory(Category category)
     {
         categoryDAO.updateCategory(category);
     }
 
+    /**
+     * Connects to CategoryDAO to delete a specific movie
+     * @param category to be deleted
+     */
     public void deleteCategory (Category category)
     {
         categoryDAO.deleteCategory(category);
@@ -55,11 +59,10 @@ public class CategoryManager
 
     /**
      * Here we get a list of categories, from a list of integers(we have the list of integers from a movie).
-     * @param categoryIds
-     * @return
+     * @param categoryIds - list of category IDs
+     * @return a list of categories
      */
-    public ArrayList<Category> getCategoriesOfMovie(List<Integer> categoryIds)
-    {
+    public ArrayList<Category> getCategoriesOfMovie(List<Integer> categoryIds) {
         ArrayList<Category> categoriesOfMovie = new ArrayList<>();
         for(Integer i : categoryIds)
         {
@@ -69,5 +72,4 @@ public class CategoryManager
         }
         return categoriesOfMovie;
     }
-
 }

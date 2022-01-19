@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="368.0" minWidth="566.0" prefHeight="368.0" prefWidth="687.0" style="-fx-background-color: #c2fcec;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.MovieController">
+<AnchorPane minHeight="368.0" minWidth="566.0" prefHeight="368.0" prefWidth="687.0" style="-fx-background-color: #60bcbe;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.MovieController">
    <children>
       <Label layoutX="14.0" layoutY="25.0" text="Movie title" />
       <TextField fx:id="txtMovieTitle" layoutX="14.0" layoutY="40.0" />

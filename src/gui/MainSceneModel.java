@@ -232,9 +232,7 @@ public class MainSceneModel
 
     public void editCategory(Category category) throws IOException {
         Stage stage = createCategoryScene();
-        categoryController.setTxtName(category.getName());
-        categoryController.setCategory(category);
-        categoryController.setEdit();
+        categoryController.setEditCategory(category);
         stage.showAndWait();
     }
 

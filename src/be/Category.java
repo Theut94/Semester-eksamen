@@ -21,8 +21,8 @@ public class Category
         listOfMovies = FXCollections.observableArrayList();
         this.categoryName.set(name);
         id=-1;
-
     }
+
     // Getters and setters.
     public int getId() {
         return id;

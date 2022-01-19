@@ -17,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 
 public class MainSceneController {
@@ -188,8 +187,8 @@ public class MainSceneController {
                 lblRatingIMDB.setText(Float.toString(selectedItem.getMovieIMDBRating()));
                 lblRatingPersonal.setText(Float.toString(selectedItem.getMoviePersonalRating()));
                 lblLastView.setText(selectedItem.getLastview().toString());
-                if (selectedItem.getPicturePath() !="") {
-                    imgMovie.setImage(new Image(selectedItem.getPicturePath()));
+                if (selectedItem.getPictureFilelink() !="") {
+                    imgMovie.setImage(new Image(selectedItem.getPictureFilelink()));
                 }
                 else {
                     imgMovie.setImage(noImage);
