@@ -17,6 +17,9 @@ public class DatabaseTableCreation {
         dtc.catMovieTableCreation();
     }
 
+    /**
+     * Creates a Movie table in the database
+     */
     private void movieTableCreation() {
         try (Connection c = dbc.getConnection()) {
 
@@ -35,6 +38,9 @@ public class DatabaseTableCreation {
             e.printStackTrace();
     }}
 
+    /**
+     * Creates a Category table in the database
+     */
     private void categoryTableCreation() {
         try (Connection c = dbc.getConnection()) {
 
@@ -50,6 +56,9 @@ public class DatabaseTableCreation {
         }
     }
 
+    /**
+     * Creates a CatMovie table in the database with references to the Movie and Category Tables
+     */
     private void catMovieTableCreation() {
         try (Connection c = dbc.getConnection()) {
 
@@ -69,8 +78,11 @@ public class DatabaseTableCreation {
         }
     }
 
-    // DONT TOUCH THIS METHOD IT IS DANGEROUS. WILL WIPE ENTIRE DATABASE!
-    public void deleteAllTables()
+    /**
+     * Wipes all information in the Movie, Category and CatMovie tables
+     * DO NOT TOUCH THIS METHOD UNLESS NECESSARY. IT IS DANGEROUS. WILL WIPE ALL INFORMATION IN THE DATABASE!
+     */
+    public void wipeAllTables()
     {
         try (Connection c = dbc.getConnection()) {
 

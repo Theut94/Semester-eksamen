@@ -16,6 +16,11 @@ public class MovieDAO
     public MovieDAO() throws IOException {
     }
 
+    /**
+     * Creates a new movie with the provided information in the Movie table in the database,
+     * then sets the ID of the movie to match the ID given by the database
+     * @param movie - the movie to be created
+     */
     public void createMovie(Movie movie) {
         try(Connection connection = DC.getConnection()) {
             String sql = "INSERT INTO Movie(movieName, ratingPersonal, ratingIMDB, filelink, lastview) VALUES (?,?,?,?,?);";
@@ -38,6 +43,10 @@ public class MovieDAO
         }
     }
 
+    /**
+     * Fetches all movies from the Movie table and adds them to a list
+     * @return a list of all movies in the database
+     */
     public List<Movie> getAllMovies() {
         ArrayList<Movie> allMovies = new ArrayList<>();
         try(Connection c = DC.getConnection()){
@@ -65,6 +74,10 @@ public class MovieDAO
         return allMovies;
     }
 
+    /**
+     * Updates the information of a specific movie in the Movie table, based on the movie's ID
+     * @param movie - the movie to be updated
+     */
     public void updateMovie(Movie movie)
     {
         String sql = "UPDATE Movie SET movieName= (?), ratingIMDB=(?), ratingPersonal=(?), filelink=(?), lastView = (?) WHERE movieId = (?);";
@@ -83,6 +96,10 @@ public class MovieDAO
         }
     }
 
+    /**
+     * Deletes a specific movie from the Movie table, based on the movie's ID
+     * @param movie - the movie to be deleted
+     */
     public void deleteMovie(Movie movie)
     {
         String sql = "DELETE FROM Movie WHERE movieId = (?);";

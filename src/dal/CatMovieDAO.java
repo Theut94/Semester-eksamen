@@ -13,12 +13,16 @@ public class CatMovieDAO
     private DatabaseConnector DC = new DatabaseConnector();
     private MovieDAO movieDAO = new MovieDAO();
 
-    public CatMovieDAO() throws IOException
-    {
+    public CatMovieDAO() throws IOException {
     }
+
+    /**
+     * Creates an item in the CatMovie table to connect the given movie and category
+     * @param movie
+     * @param category
+     */
     public void createCatMovie(Movie movie, Category category)
     {
-
         try(Connection connection = DC.getConnection()) {
             String sql = "INSERT INTO CatMovie(movieId, categoryId) VALUES (?,?);";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -30,6 +34,11 @@ public class CatMovieDAO
         }
     }
 
+    /**
+     * Deletes a specific item from CatMovie table based on a movie ID and category ID
+     * @param movie
+     * @param category
+     */
     public void deleteOneCatMovie(Movie movie, Category category)
     {
         try(Connection connection = DC.getConnection()) {
@@ -43,6 +52,10 @@ public class CatMovieDAO
         }
     }
 
+    /**
+     * Deletes all items referencing a specific movie in the CatMovie table
+     * @param movie the movie to be removed
+     */
     public void deleteMovieFromCatMovie(Movie movie)
     {
         try(Connection connection = DC.getConnection()) {
@@ -55,6 +68,10 @@ public class CatMovieDAO
         }
     }
 
+    /**
+     * Deletes all items referencing a specific category in the CatMovie table
+     * @param category to be removed
+     */
     public void deleteCategoryFromCatMovie( Category category)
     {
         try(Connection connection = DC.getConnection()) {
@@ -67,7 +84,11 @@ public class CatMovieDAO
         }
     }
 
-    //Here we see what movies are connected to a specific category.
+    /**
+     * Fetches all items in CatMovie table that belongs to a specific category and adds the movie IDs to a list
+     * @param category - the category to search for
+     * @return a list of IDs of the movies belonging to the category
+     */
     public List<Integer> getMoviesFromCategory(Category category)
     {
         ArrayList<Integer> allMoviesFromCategory = new ArrayList<>();
@@ -87,7 +108,11 @@ public class CatMovieDAO
         return allMoviesFromCategory;
     }
 
-    // Here we use a MovieID as input, to see what categories that specific movie has.
+    /**
+     * Fetches all items in CatMovie table that belongs to a specific category and adds the category IDs to a list
+     * @param movie - the movie to search for
+     * @return a list of IDs of the categories the movie is on
+     */
     public List<Integer> getCategoryIdsOfMovie(Movie movie)
     {
         ArrayList<Integer> allCategoryIdsFromMovie = new ArrayList<>();
