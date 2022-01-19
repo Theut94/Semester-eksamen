@@ -14,7 +14,7 @@ import java.util.List;
 public class MovieManager
 {
     private MovieDAO movieDAO;
-    SearchMovie filter;
+    private SearchMovie filter;
 
     public MovieManager() throws IOException {
         filter = new SearchMovie();
