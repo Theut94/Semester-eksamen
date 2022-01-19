@@ -92,11 +92,23 @@ public class MainSceneController {
     }
 
     public void ChangeRating(ActionEvent actionEvent) throws IOException {
-        Movie selectedMovie = tvMovies.getSelectionModel().getSelectedItem();
-        selectedMovie.setMoviePersonalRating(Float.parseFloat(txtUpdatedRating.getText()));
-        mainSceneModel.updateMovie(selectedMovie);
-        lblRatingPersonal.setText("" + selectedMovie.getMoviePersonalRating());
-        tvMovies.refresh();
+        boolean isStringANumber = true;
+        try{
+            Float.parseFloat(txtUpdatedRating.getText());
+        }
+        catch (NumberFormatException e){
+            isStringANumber = false;
+        }
+        if (!isStringANumber)
+            AlertHandler.informationAlert("Please check the set rating is a number. (Use Dot for separation)");
+        else
+        {
+            Movie selectedMovie = tvMovies.getSelectionModel().getSelectedItem();
+            selectedMovie.setMoviePersonalRating(Float.parseFloat(txtUpdatedRating.getText()));
+            mainSceneModel.updateMovie(selectedMovie);
+            lblRatingPersonal.setText("" + selectedMovie.getMoviePersonalRating());
+            tvMovies.refresh();
+        }
     }
 
 

@@ -2,6 +2,7 @@ package gui.controllers;
 
 import be.Category;
 import be.Movie;
+import gui.AlertHandler;
 import gui.MainSceneModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -102,8 +103,31 @@ public class MovieController implements Initializable {
      */
     public void saveMovie(ActionEvent actionEvent) throws IOException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        if(!edit)
+        boolean isStringANumber = true;
+        try{
+            Float.parseFloat(txtIMDBRating.getText());
+        }
+        catch (NumberFormatException e){
+            isStringANumber = false;
+        }
+        ArrayList<String> alertList = new ArrayList<>();
+        if(txtMovieTitle.getText().trim().equals("") || txtMovieFilePath.getText().trim().equals("") || !isStringANumber )
         {
+            if(txtMovieTitle.getText().trim().equals(""))
+                alertList.add("Movie needs a name.");
+
+            if (txtMovieFilePath.getText().trim().equals(""))
+                alertList.add("Movie needs a filepath.");
+            if(!isStringANumber)
+                alertList.add("Please check the set rating is a number. (Use Dot for separation)");
+            String alertmessage = "";
+            for (int i = 0 ; i<alertList.size() ; i++)
+                alertmessage = alertmessage + " " + alertList.get(i);
+            AlertHandler.informationAlert(alertmessage);
+        }
+        else if(!edit)
+        {
+
             LocalDate standardDate = LocalDate.of(1969,04,20);
             Movie movie = new Movie(txtMovieTitle.getText(),Float.parseFloat(txtIMDBRating.getText()),txtMovieFilePath.getText(),standardDate);
 
@@ -123,6 +147,7 @@ public class MovieController implements Initializable {
             }
             movie.setMovieCategories(categoryList);
             mainSceneModel.createMovie(movie);
+            ((Stage) btnSave.getScene().getWindow()).close();
         }
 
         else
@@ -149,8 +174,9 @@ public class MovieController implements Initializable {
             if (!txtPicturePath.getText().isBlank())
                 editableMovie.setPictureFilelink(txtPicturePath.getText());
             mainSceneModel.updateMovie(editableMovie);
+            ((Stage) btnSave.getScene().getWindow()).close();
         }
-        ((Stage) btnSave.getScene().getWindow()).close();
+
     }
 
     /**
