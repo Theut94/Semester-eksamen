@@ -28,10 +28,4 @@ public class DatabaseConnector
         return dataSource.getConnection();
     }
 
-    public static void main(String[] args) throws IOException, SQLException {
-        DatabaseConnector DC = new DatabaseConnector();
-        Connection connection = DC.getConnection();
-        System.out.println(!connection.isClosed());
-
-    }
 }

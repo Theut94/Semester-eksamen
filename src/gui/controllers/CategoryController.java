@@ -29,11 +29,11 @@ public class CategoryController {
             else {
                 category.setName(txtName.getText());
                 mainSceneModel.updateCategory(category);
-            }
+                }
             ((Stage) txtName.getScene().getWindow()).close();
-        }
+            }
         else
-            AlertHandler.informationAlert("Name cannot be empty");
+        AlertHandler.informationAlert("Name cannot be empty");
     }
 
     /**

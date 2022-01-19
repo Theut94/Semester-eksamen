@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Main extends Application
 {
     private double xOffset = 0;
@@ -17,7 +19,7 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("views/MainScene.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("views/MainScene.fxml")));
         primaryStage.setTitle("Movie Collection");
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();

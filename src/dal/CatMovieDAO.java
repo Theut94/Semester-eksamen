@@ -11,7 +11,6 @@ import java.util.List;
 public class CatMovieDAO
 {
     private DatabaseConnector DC = new DatabaseConnector();
-    private MovieDAO movieDAO = new MovieDAO();
 
     public CatMovieDAO() throws IOException {
     }

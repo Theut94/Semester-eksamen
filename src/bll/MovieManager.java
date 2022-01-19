@@ -100,7 +100,7 @@ public class MovieManager
         if(categoryIds.size()!=0)
         return categoryManager.getCategoriesOfMovie(categoryIds);
         else
-            return new ArrayList<Category>();
+            return new ArrayList<>();
     }
     
 }

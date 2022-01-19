@@ -29,7 +29,7 @@ public class Movie
         this.lastview = lastview;
         id.set(-1);
         moviePersonalRating.set(-1);
-        movieCategories = new ArrayList<Category>();
+        movieCategories = new ArrayList<>();
         pictureFilelink = "";
     }
 
@@ -38,13 +38,14 @@ public class Movie
      * @return a string containing the categories of the movie
      */
     public String getCategoriesToString() {
-        String allCategories = new String();
+        String allCategories = "";
         if(movieCategories.size() != 0)
-        {for(int i = 0; i< movieCategories.size(); i++)
         {
-            String addition = movieCategories.get(i).getName();
-            allCategories = allCategories +addition + " ";
-        }}
+            for (Category movieCategory : movieCategories) {
+                String addition = movieCategory.getName();
+                allCategories = allCategories + addition + " ";
+            }
+        }
         return allCategories;
     }
 

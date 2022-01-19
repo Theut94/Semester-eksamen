@@ -66,10 +66,8 @@ public class MovieDAO
                 movie.setMovieCategories(movieManager.getCategoriesOfMovie(movie));
                 allMovies.add(movie);
             }
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException throwables) {
             throwables.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return allMovies;
     }
@@ -112,7 +110,5 @@ public class MovieDAO
             throwables.printStackTrace();
         }
     }
-
-
 
 }

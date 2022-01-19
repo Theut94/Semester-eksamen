@@ -14,7 +14,6 @@ public class CatMovieManager
     private CatMovieDAO catMovieDAO = new CatMovieDAO();
     private MovieManager movieManager = new MovieManager();
 
-
     public CatMovieManager() throws IOException {
     }
 
