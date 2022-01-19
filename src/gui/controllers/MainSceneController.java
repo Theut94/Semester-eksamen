@@ -15,12 +15,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 
 public class MainSceneController {
 
+    @FXML
+    private ComboBox cbMinimumRating;
     @FXML
     private TextField txtUpdatedRating;
     @FXML
@@ -80,7 +83,11 @@ public class MainSceneController {
                 e.printStackTrace();
             }
         });
+        //Rating-searcher 1-10
+        cbMinimumRating.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        cbMinimumRating.setVisibleRowCount(10);
     }
+    
 
     public void PlayMovie(ActionEvent actionEvent) throws IOException
     {
@@ -110,7 +117,6 @@ public class MainSceneController {
             tvMovies.refresh();
         }
     }
-
 
     public void RunCleanup(ActionEvent actionEvent)
     {
