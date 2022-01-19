@@ -18,14 +18,17 @@ public class CategoryManager
         categoryDAO = new CategoryDAO();
     }
 
+    /**
+     * Connects to CategoryDAO to create a new category
+     * @param category - the category to be created
+     */
     public void createCategory(Category category) {
         categoryDAO.createCategory(category);
     }
 
     /**
-     * Here we get a list of all Categories
-     * @return
-     * @throws IOException
+     * Gets a list of all categories from the DAO classes, then adds them to an observable list
+     * @return an observable list of all categories
      */
     public ObservableList<Category> getAllCategoriesToObservable() throws IOException {
         ObservableList<Category> observableCategories = FXCollections.observableArrayList();
@@ -40,7 +43,7 @@ public class CategoryManager
         return observableCategories;
     }
     /**
-     * Connects to CategoryDAO to update the information of a specific movie
+     * Connects to CategoryDAO to update the information of a specific category
      * @param category to be updated
      */
     public void updateCategory(Category category)
@@ -49,7 +52,7 @@ public class CategoryManager
     }
 
     /**
-     * Connects to CategoryDAO to delete a specific movie
+     * Connects to CategoryDAO to delete a specific category
      * @param category to be deleted
      */
     public void deleteCategory (Category category)
