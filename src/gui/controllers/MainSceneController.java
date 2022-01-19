@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class MainSceneController{
 
     @FXML
-    private ComboBox<Integer> cbMinimumRating;
+    private ComboBox<String> cbMinimumRating;
     @FXML
     private TextField txtUpdatedRating;
     @FXML
@@ -75,22 +75,29 @@ public class MainSceneController{
             e.printStackTrace();
         }
         //Rating-searcher 1-10
-        cbMinimumRating.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        cbMinimumRating.setVisibleRowCount(10);
+        cbMinimumRating.setItems(FXCollections.observableArrayList("IMDB Rating", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
+        cbMinimumRating.setVisibleRowCount(11);
         ObservableList<Movie> approvedMovies = FXCollections.observableArrayList();
 
+        //Listener for IMDB Ratings
         cbMinimumRating.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-            tvMovies.setItems(originalList);
-            approvedMovies.clear();
-            for (Movie m : tvMovies.getItems()) {
-                if (m.getMovieIMDBRating() >= Float.parseFloat(newValue.toString()))
-                    approvedMovies.add(m);
-            }
-            for (int i = 0 ; i<approvedMovies.size() ; i++)
-                System.out.println(approvedMovies.get(i));
+            if (newValue != null) {
+                tvMovies.setItems(originalList);
+                approvedMovies.clear();
+                if (cbMinimumRating.getSelectionModel().getSelectedIndex() == 0)
+                    for (Movie m : tvMovies.getItems()) {
+                        if (m.getMovieIMDBRating() >= 0)
+                            approvedMovies.add(m);
+                    }
+                else {
+                    for (Movie m : tvMovies.getItems()) {
+                        if (m.getMovieIMDBRating() >= Float.parseFloat(newValue))
+                            approvedMovies.add(m);
+                    }
+                }
             if (!approvedMovies.isEmpty())
                 tvMovies.setItems(approvedMovies);
-        });
+        }});
         //Movie search
         movieSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
@@ -105,7 +112,6 @@ public class MainSceneController{
         });
 
     }
-    
 
     public void PlayMovie(ActionEvent actionEvent) throws IOException
     {
@@ -198,11 +204,13 @@ public class MainSceneController{
                     tvMovies.setItems(mainSceneModel.getAllMovies());
                     originalList.setAll(mainSceneModel.getAllMovies());
                 }
+                if (!cbMinimumRating.getSelectionModel().isEmpty()) {
+                    cbMinimumRating.getSelectionModel().select(0);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void showMovieInfo(MouseEvent mouseEvent) {
